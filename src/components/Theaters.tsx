@@ -1,6 +1,6 @@
 import API from "@/services/API";
 import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Timings from "./Timings";
 import Moviebanner from "./Moviebanner";
 import { useCookies } from "react-cookie";
@@ -12,14 +12,18 @@ export interface Theater {
   price: number;
 }
 
-export default function Theaters() {
+export default function Theaters({isAuthenticated}:{isAuthenticated:boolean}) {
   const location = useLocation();
   const[cookies] = useCookies(["token"])
   const movieData = location.state;
   const [theaters, setTheaters] = useState<Theater[]>([]);
   const params = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
+    if(!isAuthenticated){
+        navigate("/signin")
+    }
     const fetchTheaters = async () => {
       try {
         const theaters = await API.get.getTheaters(cookies.token,params.movieId);

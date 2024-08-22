@@ -1,6 +1,7 @@
 import { useState,useEffect } from "react";
 import API from "@/services/API";
 import { useCookies } from "react-cookie";
+import Time from "./Time";
 
 export interface Showtime {
     time:string
@@ -9,7 +10,21 @@ export interface Showtime {
 export default function Timings({theater_movie_id}:{theater_movie_id:string}) {
     const [timings,setTimings] = useState<Showtime[]>([]);
     const [cookies] = useCookies(["token"])
-    
+    const [theaterTimeMovieId,setTheaterTimeMovieId] = useState()
+
+    const getTheaterTimeMovieId = (theater_movie_id :string,time : string) => {
+        const fun = async () => {
+            try {
+                const theaterTimeMovieId = await API.get.getTheaterTimeMovieId(theater_movie_id,time);
+                setTheaterTimeMovieId(theaterTimeMovieId);
+                console.log(theaterTimeMovieId);
+              } catch (err) {
+                console.log(err);
+              }
+        }
+        fun();
+    }
+
     useEffect(() => {
         const fetchTheaters = async () => {
             try{
@@ -26,9 +41,7 @@ export default function Timings({theater_movie_id}:{theater_movie_id:string}) {
   return (
     <div>
         {
-            timings.map((time,indx) => <span key={indx} className="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded border-purple-400 border">
-            {time.time.substring(0,5)}
-                </span>)
+            timings.map((time,indx) => <Time theaterMovieId={theater_movie_id} time={time.time} />)
         }
     </div>
   )
