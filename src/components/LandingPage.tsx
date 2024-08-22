@@ -1,6 +1,7 @@
 import { useEffect,useState } from "react";
 import MovieCard from "./MovieCard";
 import API from '../services/API'
+import { useCookies } from "react-cookie";
 
 export interface Movie{
     movie_id:string,
@@ -11,6 +12,7 @@ export interface Movie{
 
 function LandingPage() : JSX.Element {
     const [movies,setMovies] = useState<Movie[]>([])
+    const [cookies] = useCookies(['token']);
 
     useEffect(() => {
         const fechMovies = async () => {

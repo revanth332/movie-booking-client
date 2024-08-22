@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import Timings from "./Timings";
 import Moviebanner from "./Moviebanner";
+import { useCookies } from "react-cookie";
 
 export interface Theater {
   theater_movie_id: string;
@@ -13,6 +14,7 @@ export interface Theater {
 
 export default function Theaters() {
   const location = useLocation();
+  const[cookies] = useCookies(["token"])
   const movieData = location.state;
   const [theaters, setTheaters] = useState<Theater[]>([]);
   const params = useParams();
@@ -20,7 +22,7 @@ export default function Theaters() {
   useEffect(() => {
     const fetchTheaters = async () => {
       try {
-        const theaters = await API.get.getTheaters(params.movieId);
+        const theaters = await API.get.getTheaters(cookies.token,params.movieId);
         setTheaters(theaters);
         console.log(theaters);
       } catch (err) {

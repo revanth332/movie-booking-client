@@ -1,5 +1,6 @@
 import { useState,useEffect } from "react";
 import API from "@/services/API";
+import { useCookies } from "react-cookie";
 
 export interface Showtime {
     time:string
@@ -7,11 +8,12 @@ export interface Showtime {
 
 export default function Timings({theater_movie_id}:{theater_movie_id:string}) {
     const [timings,setTimings] = useState<Showtime[]>([]);
+    const [cookies] = useCookies(["token"])
     
     useEffect(() => {
         const fetchTheaters = async () => {
             try{
-                const showTimes = await API.get.getShowTimes(theater_movie_id);
+                const showTimes = await API.get.getShowTimes(cookies.token,theater_movie_id);
                 setTimings(showTimes);
                 console.log(showTimes)
             }

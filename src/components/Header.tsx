@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function Header(): JSX.Element {
   return (
-    <div className="flex justify-end w-full bg-black">
+    <div className="flex justify-end w-full absolute z-10">
       <div>
         <ul className="flex text-white">
           <li>

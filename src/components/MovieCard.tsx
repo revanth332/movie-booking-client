@@ -24,18 +24,16 @@ export default function MovieCard({ movie }: { movie: Movie }): JSX.Element {
             : movie.movie_name}
         </CardTitle>
         <br />
-        <CardDescription>
-          <div className="flex justify-between">
+        <CardDescription className="flex justify-between">
             <Button>
               <Link to={movie.movie_id} state={movie}>
                 Watch
               </Link>
             </Button>
-            <p className="text-red-500 font-bold flex items-center">
+            <span className="text-red-500 font-bold flex items-center">
               {" "}
               Rating : {movie.rating}
-            </p>
-          </div>
+            </span>
         </CardDescription>
       </CardContent>
       {/* <CardFooter>
