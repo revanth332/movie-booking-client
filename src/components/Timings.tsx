@@ -25,7 +25,7 @@ export default function Timings({theater_movie_id}:{theater_movie_id:string}) {
     <div>
         {
             timings.map((time,indx) => <span key={indx} className="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded border-purple-400 border">
-                {time.time.substring(0,5)}
+            {time.time.substring(0,5)}
                 </span>)
         }
     </div>

@@ -33,11 +33,11 @@ export default function Theaters() {
   return (
     <div>
       <Moviebanner movie={movieData} />
-      <div className="grid grid-cols-1 p-2 mt-2">
+      <div className="grid grid-cols-4 p-2 mt-2">
         {theaters.map((theater, indx) => (
           <div
             key={indx}
-            className="shadow-lg max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+            className="shadow-lg bg-slate-200 max-w-sm p-6  border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700"
           >
             <a href="#">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">

@@ -1,7 +1,5 @@
 import Rating from "./Rating";
-import { useEffect, useState } from "react";
 import { Movie } from "./LandingPage";
-import API from "@/services/API";
 
 export default function Moviebanner({ movie }: { movie: Movie }) {
   return (
@@ -17,7 +15,7 @@ export default function Moviebanner({ movie }: { movie: Movie }) {
           <div>
             <img
               className="w-[400px] rounded-xl "
-              src="src\assets\devara.jpg"
+              src="src\assets\movie-reel.jpg"
               alt=""
             />
           </div>

@@ -24,16 +24,16 @@ export default function Signin() {
       <CardContent>
         <div className="grid gap-4">
           <div className="grid gap-2">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="phone">Phone</Label>
             <Input
               id="phone"
-              type="phone"
+              type="text"
               placeholder="+91 111 222 3334"
               required
             />
           </div>
           <div className="grid gap-2">
-            <Input id="password" type="password" placeholder="password" required />
+            <Input id="password" type="password" placeholder="Password" required />
           </div>
           <Button type="submit" className="w-full">
             Login
