@@ -67,7 +67,7 @@ export default {
     },
     getTheaterTimeMovieId: async (theater_movie_id :string,time : string) => {
       try{
-        const response = await axios.get(`${USER_URL}/getTheaterTimeMovieId?theaterMovieId=${theater_movie_id}&time=${time}`,);
+        const response = await axios.get(`${USER_URL}/getTheaterTimeMovieId?theaterMovieId=${theater_movie_id}&time=${time}`);
         return response.data;
       }
       catch(err){
