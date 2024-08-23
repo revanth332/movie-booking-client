@@ -10,78 +10,134 @@ const AUTH_URL = "http://localhost:8000/v1/auth";
 
 export default {
   post: {
-    signin: async (user : UserSignin) => {
-      try{
-        const response = await axios.post(`${AUTH_URL}/loginUser`,user);
+    signin: async (user: UserSignin) => {
+      try {
+        const response = await axios.post(`${AUTH_URL}/loginUser`, user);
         return response.data;
-      }
-      catch(err){
+      } catch (err) {
         throw err;
       }
     },
-    signup: async (user : UserSignup) => {
-      try{
-        const response = await axios.post(`${AUTH_URL}/registerUser`,user);
+    signup: async (user: UserSignup) => {
+      try {
+        const response = await axios.post(`${AUTH_URL}/registerUser`, user);
         return response.data;
+      } catch (err) {
+        throw err;
       }
-      catch(err){
+    },
+    bookMovie: async (userId: string, seats: string[], token: string) => {
+      try {
+        const response = await axios.post(
+          `${USER_URL}/bookMovie`,
+          {
+            userId,
+            seats,
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
+        return response.data;
+      } catch (err) {
         throw err;
       }
     },
   },
-  get:{
-    getMovies: async () : Promise<Movie[]> => {
-      try{
-        const response = await axios.get<Movie[]>(`http://localhost:8000/v1/getTrendingMovies`);
+  get: {
+    getMovies: async (): Promise<Movie[]> => {
+      try {
+        const response = await axios.get<Movie[]>(
+          `http://localhost:8000/v1/getTrendingMovies`
+        );
         return response.data;
-      }
-      catch(err){
+      } catch (err) {
         throw err;
       }
     },
-    getTheaters : async (token:string,movieId : string | undefined) => {
-      try{
-        const response = await axios.get<Theater[]>(`${USER_URL}/getTheaters?movieId=${movieId}`,{
-          headers:{
-            "Authorization":"Bearer "+token
+    getTheaters: async (token: string, movieId: string | undefined) => {
+      try {
+        const response = await axios.get<Theater[]>(
+          `${USER_URL}/getTheaters?movieId=${movieId}`,
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
           }
-        });
+        );
         return response.data;
-      }
-      catch(err){
+      } catch (err) {
         throw err;
       }
     },
-    getShowTimes : async (token:string,theaterMovieId : string | undefined) => {
-      try{
-        const response = await axios.get<Showtime[]>(`${USER_URL}/getShowTimes?theaterMovieId=${theaterMovieId}`,{
-          headers:{
-            "Authorization":"Bearer "+token
+    getShowTimes: async (token: string, theaterMovieId: string | undefined) => {
+      try {
+        const response = await axios.get<Showtime[]>(
+          `${USER_URL}/getShowTimes?theaterMovieId=${theaterMovieId}`,
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
           }
-        });
+        );
         return response.data;
-      }
-      catch(err){
+      } catch (err) {
         throw err;
       }
     },
-    getTheaterTimeMovieId: async (theater_movie_id :string,time : string) => {
-      try{
-        const response = await axios.get(`${USER_URL}/getTheaterTimeMovieId?theaterMovieId=${theater_movie_id}&time=${time}`);
-        return response.data;
-      }
-      catch(err){
+    getTheaterTimeMovieId: async (
+      theater_movie_id: string,
+      time: string,
+      token: string
+    ) => {
+      try {
+        const response = await axios.get(
+          `${USER_URL}/getTheaterTimeMovieId?theaterMovieId=${theater_movie_id}&time=${time}`,
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
+        console.log(response);
+        return response.data[0].theater_movie_time_id;
+      } catch (err) {
         throw err;
       }
     },
-    getSeats: async (theaterTimeMovieId :string) => {
-      try{
-        const response = await axios.get(`${USER_URL}/getTheaterTimeMovieId?theaterMovieId=${theaterTimeMovieId}`,);
+    getSeats: async (theaterTimeMovieId: string | undefined, token: string) => {
+      try {
+        const response = await axios.get(
+          `${USER_URL}/getSeats?theaterMovieTimeId=${theaterTimeMovieId}`,
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
+        console.log(response);
         return response.data;
-      }
-      catch(err){
+      } catch (err) {
         throw err;
       }
     },
-  }
+    getBookings: async (token: string, userId: string) => {
+      try {
+        const response = await axios.get(
+          `${USER_URL}/getBookings?userId=${userId}`,
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
+        console.log(response);
+        return response.data;
+      } catch (err) {
+        throw err;
+      }
+    },
+  },
 };

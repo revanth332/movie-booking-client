@@ -10,20 +10,6 @@ export interface Showtime {
 export default function Timings({theater_movie_id}:{theater_movie_id:string}) {
     const [timings,setTimings] = useState<Showtime[]>([]);
     const [cookies] = useCookies(["token"])
-    const [theaterTimeMovieId,setTheaterTimeMovieId] = useState()
-
-    const getTheaterTimeMovieId = (theater_movie_id :string,time : string) => {
-        const fun = async () => {
-            try {
-                const theaterTimeMovieId = await API.get.getTheaterTimeMovieId(theater_movie_id,time);
-                setTheaterTimeMovieId(theaterTimeMovieId);
-                console.log(theaterTimeMovieId);
-              } catch (err) {
-                console.log(err);
-              }
-        }
-        fun();
-    }
 
     useEffect(() => {
         const fetchTheaters = async () => {
