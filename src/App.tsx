@@ -9,19 +9,24 @@ import Theaters from "./components/Theaters";
 import Notfound from "./components/Notfound";
 import Seats from "./components/Seats";
 import Bookings from "./components/Bookings";
+import PublisherSignIn from "./components/PublisherSignIn";
+import PublishedMovies from "./components/PublishedMovies";
+import PublishMovie from "./components/PublishMovie";
+import PublisherSignUp from "./components/PublisherSignUp";
+import ReactTask from "./components/ReactTask";
+
 
 function App(): JSX.Element {
   const [cookies] = useCookies();
   const [isAuthenticated, setAuthenticated] = useState<boolean>(false);
   useEffect(() => {
     const token = cookies.token;
-    if (token !== undefined && token !== null && token != "") {
-      setAuthenticated(true);
-      console.log(token);
+    if (token !== undefined ) {
+      // setAuthenticated(true);
+      console.log(token,isAuthenticated);
     }
-    console.log(token);
-    console.log(isAuthenticated);
-  }, [isAuthenticated]);
+    // console.log(token,isAuthenticated);
+  });
   return (
     <CookiesProvider>
       <BrowserRouter>
@@ -47,6 +52,26 @@ function App(): JSX.Element {
           <Route
             path="/signin"
             element={<Signin setAuthenticated={setAuthenticated} />}
+          />
+          <Route
+            path="/publisherSignin"
+            element={<PublisherSignIn setAuthenticated={setAuthenticated} />}
+          />
+          <Route
+            path="/publisherSignup"
+            element={<PublisherSignUp />}
+          />
+            <Route
+            path="/publishedMovies"
+            element={<PublishedMovies />}
+          />
+            <Route
+            path="/publishMovie"
+            element={<PublishMovie />}
+          />
+          <Route
+            path="/task"
+            element={<ReactTask />}
           />
           {/* <Route path="*" element={<Notfound />} /> */}
         </Routes>

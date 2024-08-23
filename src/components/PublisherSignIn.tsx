@@ -20,25 +20,25 @@ export interface UserSignin {
   password: string;
 }
 
-export default function Signin({
+export default function PublisherSignIn({
   setAuthenticated,
 }: {
   setAuthenticated: (isAuthenticated: boolean) => void;
 }) {
   const [user, setUser] = useState<UserSignin>({ phone: "", password: "" });
-  const [cookies, setCookie] = useCookies(["token", "userId", "userName"]);
+  const [cookies, setCookie] = useCookies(["token", "theaterId", "theaterName"]);
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const res = await API.post.signin(user);
+      const res = await API.post.publisherSignin(user);
       console.log(res);
       setCookie("token", res.token);
-      setCookie("userId", res.userId);
-      setCookie("userName", res.userName);
+      setCookie("theaterId", res.theaterId);
+      setCookie("theaterName", res.theaterName);
       setAuthenticated(true);
-      navigate("/");
+      navigate("/publishedMovies");
       console.log(res.token);
     } catch (err) {
       console.log(err);
@@ -87,7 +87,7 @@ export default function Signin({
 
             <div className="mt-4 text-center text-sm">
               Don&apos;t have an account?{" "}
-              <Link to="/signup" className="underline">
+              <Link to="/publisherSignup" className="underline">
                 Sign up
               </Link>
             </div>

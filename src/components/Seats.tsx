@@ -150,7 +150,7 @@ export default function Seats() {
               <DialogClose asChild>
                 <Button
                   onClick={() => {
-                    navigate("/");
+                    navigate("/bookings");
                   }}
                   type="button"
                   variant="secondary"

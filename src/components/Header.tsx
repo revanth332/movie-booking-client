@@ -25,13 +25,19 @@ export default function Header({
 
   useEffect(() => {
     console.log(isAuthenticated);
-  });
+  },[isAuthenticated]);
+
   return (
     <div className="flex justify-end w-full bg-black p-2">
       <div>
         {isAuthenticated ? (
           <ul className="flex text-white">
             <li className="block px-4 py-2">Hi! {cookies.userName}</li>
+            <li>
+              <Link className="block px-4 py-2 hover:font-bold" to="/">
+                Home
+              </Link>
+            </li>
             <li>
               <Link className="block px-4 py-2 hover:font-bold" to="/bookings">
                 Bookings

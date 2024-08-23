@@ -39,7 +39,7 @@ export default function Theaters({isAuthenticated}:{isAuthenticated:boolean}) {
   return (
     <div>
       <Moviebanner movie={movieData} />
-      <div className="grid grid-cols-4 p-2 mt-2">
+      <div className="grid grid-cols-4 gap-5 p-2 mt-2">
         {theaters.map((theater, indx) => (
           <div
             key={indx}
