@@ -4,7 +4,7 @@ import { Theater } from "@/components/Theaters";
 import { Showtime } from "@/components/Timings";
 import { UserSignin } from "@/components/Signin";
 import { UserSignup } from "@/components/Signup";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import { Publisher } from "@/components/PublisherSignUp";
 import { PublishingMovie } from "@/components/PublishMovie";
 // const token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlNDk4NTk3YS02MDYzLTExZWYtOTM1YS04Y2VjNGJjOTkxNGQiLCJpYXQiOjE3MjQzMjI1NDYsImV4cCI6MTcyNDQwODk0Nn0.t6mGy1Vp-l6fFJmGsT0zEXitPbcrQ8vF9FT5yhjCsig"
@@ -46,13 +46,19 @@ export default {
         throw err;
       }
     },
-    bookMovie: async (userId: string, seats: string[], token: string) => {
+    bookMovie: async (
+      userId: string,
+      seats: string[],
+      theaterTimeMovieId: string | undefined,
+      token: string
+    ) => {
       try {
         const response = await axios.post(
           `${USER_URL}/bookMovie`,
           {
             userId,
             seats,
+            theaterTimeMovieId,
           },
           {
             headers: {
@@ -83,17 +89,13 @@ export default {
         throw err;
       }
     },
-    addMovie: async (movie : PublishingMovie,token:string) => {
+    addMovie: async (movie: PublishingMovie, token: string) => {
       try {
-        const response = await axios.post(
-          `${USER_URL}/cancelBooking`,
-          movie,
-          {
-            headers: {
-              Authorization: "Bearer " + token,
-            },
-          }
-        );
+        const response = await axios.post(`${PUBLISHER_URL}/addMovie`, movie, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        });
         return response.data;
       } catch (err) {
         throw err;
@@ -111,10 +113,14 @@ export default {
         throw err;
       }
     },
-    getPublishedMovies: async (theaterId:string,token:string): Promise<Movie[]> => {
+    getPublishedMovies: async (
+      theaterId: string,
+      token: string
+    ): Promise<Movie[]> => {
       try {
         const response = await axios.get<Movie[]>(
-          `${PUBLISHER_URL}/getPublishedMovies?theaterId=${theaterId}`,{
+          `${PUBLISHER_URL}/getPublishedMovies?theaterId=${theaterId}`,
+          {
             headers: {
               Authorization: "Bearer " + token,
             },
@@ -207,6 +213,5 @@ export default {
         throw err;
       }
     },
-
   },
 };

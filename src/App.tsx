@@ -14,16 +14,16 @@ import PublishedMovies from "./components/PublishedMovies";
 import PublishMovie from "./components/PublishMovie";
 import PublisherSignUp from "./components/PublisherSignUp";
 import ReactTask from "./components/ReactTask";
-
+import Cloudinary from "./components/Cloudinary";
 
 function App(): JSX.Element {
   const [cookies] = useCookies();
   const [isAuthenticated, setAuthenticated] = useState<boolean>(false);
   useEffect(() => {
     const token = cookies.token;
-    if (token !== undefined ) {
-      // setAuthenticated(true);
-      console.log(token,isAuthenticated);
+    if (token !== undefined) {
+      setAuthenticated(true);
+      console.log(token, isAuthenticated);
     }
     // console.log(token,isAuthenticated);
   });
@@ -42,9 +42,10 @@ function App(): JSX.Element {
           >
             <Route index element={<LandingPage />} />
             <Route
-              path="/:movieId"
+              path="/theaters/:movieId"
               element={<Theaters isAuthenticated={isAuthenticated} />}
             />
+            <Route path="/publishMovie" element={<PublishMovie />} />
             <Route path="/seats/:theaterTimeMovieId" element={<Seats />} />
             <Route path="/bookings" element={<Bookings />} />
           </Route>
@@ -57,23 +58,12 @@ function App(): JSX.Element {
             path="/publisherSignin"
             element={<PublisherSignIn setAuthenticated={setAuthenticated} />}
           />
-          <Route
-            path="/publisherSignup"
-            element={<PublisherSignUp />}
-          />
-            <Route
-            path="/publishedMovies"
-            element={<PublishedMovies />}
-          />
-            <Route
-            path="/publishMovie"
-            element={<PublishMovie />}
-          />
-          <Route
-            path="/task"
-            element={<ReactTask />}
-          />
-          {/* <Route path="*" element={<Notfound />} /> */}
+          <Route path="/publisherSignup" element={<PublisherSignUp />} />
+          <Route path="/publishedMovies" element={<PublishedMovies />} />
+          <Route path="/task" element={<ReactTask />} />
+          <Route path="/upload" element={<Cloudinary />} />
+
+          <Route path="*" element={<Notfound />} />
         </Routes>
       </BrowserRouter>
     </CookiesProvider>

@@ -6,39 +6,61 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  CalendarIcon,
+  PlayCircleIcon,
+  SearchIcon,
+  TicketIcon,
+} from "lucide-react";
 import { Movie } from "./LandingPage";
 import { Button } from "./ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function MovieCard({ movie }: { movie: Movie }): JSX.Element {
-  return (
-    <Card className="h-[330px] bg-slate-200">
-      <CardHeader>
-        <img src="src\assets\movie.jpg" alt="" />
-      </CardHeader>
+  const navigate = useNavigate();
 
-      <CardContent>
-        <CardTitle>
-          {movie.movie_name.length > 20
-            ? movie.movie_name.substring(0, 20) + "..."
-            : movie.movie_name}
-        </CardTitle>
-        <br />
-        <CardDescription className="flex justify-between">
-            <Button>
-              <Link to={movie.movie_id} state={movie}>
-                Watch
-              </Link>
-            </Button>
-            <span className="text-red-500 font-bold flex items-center">
-              {" "}
-              Rating : {movie.rating}
+  const handleBooking = () => {
+    navigate(`/theaters/${movie.movie_id}`,{state:movie});
+  };
+
+  return (
+    <Card className="flex-shrink-0 w-[350px] relative overflow-hidden group">
+      <img
+        alt={`Movie poster`}
+        className="object-cover w-full transition-transform duration-300 group-hover:scale-110"
+        height="400"
+        src="src\assets\poster.jpg"
+        style={{
+          aspectRatio: "300/400",
+          objectFit: "cover",
+        }}
+        width="300"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+          <h3 className="font-bold text-lg mb-2">{movie.movie_name}</h3>
+          <p className="text-sm mb-4">
+            {movie.genre} • {movie.duration}
+          </p>
+          <div className="flex items-center gap-2 mb-4">
+            <PlayCircleIcon className="h-4 w-4" />
+            <span className="text-sm">Watch Trailer</span>
+          </div>
+          <div className="flex items-center gap-2 mb-4">
+            <CalendarIcon className="h-4 w-4" />
+            <span className="text-sm">
+              {movie.release_date.substring(0, 10)}
             </span>
-        </CardDescription>
-      </CardContent>
-      {/* <CardFooter>
-            <p className="text-red-500"> Rating : {movie.rating}</p>
-        </CardFooter> */}
+          </div>
+          <Button
+            onClick={handleBooking}
+            className="w-full bg-white text-black hover:bg-gray-200"
+          >
+            Book Now
+          </Button>
+        </div>
+      </div>
     </Card>
   );
 }

@@ -25,7 +25,7 @@ export default function Header({
 
   useEffect(() => {
     console.log(isAuthenticated);
-  },[isAuthenticated]);
+  }, [isAuthenticated]);
 
   return (
     <div className="flex justify-end w-full bg-black p-2">
@@ -41,6 +41,14 @@ export default function Header({
             <li>
               <Link className="block px-4 py-2 hover:font-bold" to="/bookings">
                 Bookings
+              </Link>
+            </li>
+            <li>
+              <Link
+                className="block px-4 py-2 hover:font-bold"
+                to="/publishMovie"
+              >
+                Publish
               </Link>
             </li>
             <li>
@@ -67,6 +75,22 @@ export default function Header({
             <li>
               <Link className="block px-4 py-2 hover:font-bold" to="/">
                 Home
+              </Link>
+            </li>
+            <li>
+              <Link
+                className="block px-4 py-2 hover:font-bold"
+                to="/publisherSignin"
+              >
+                Publisher SignIn
+              </Link>
+            </li>
+            <li>
+              <Link
+                className="block px-4 py-2 hover:font-bold"
+                to="/publisherSignup"
+              >
+                Publisher SignUp
               </Link>
             </li>
           </ul>

@@ -1,17 +1,32 @@
 import API from "@/services/API";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Button } from "./ui/button";
 
 export default function Time({
   theaterMovieId,
+  selectedTime,
+  setSelectedTime,
+  theaterName,
   time,
+  setSelectedMovieTimeId,
 }: {
   theaterMovieId: string;
+  selectedTime: string;
+  setSelectedTime: (selectedTime: string) => void;
+  theaterName: string;
   time: string;
+  setSelectedMovieTimeId: (item: string) => void;
 }) {
-  const [theaterTimeMovieId, setTheaterTimeMovieId] = useState([]);
+  const [theaterTimeMovieId, setTheaterTimeMovieId] = useState("");
   const [cookies] = useCookies(["token"]);
+
+  const handleSelection = () => {
+    setSelectedTime(`${theaterName}-${time}`);
+    setSelectedMovieTimeId(theaterTimeMovieId);
+  };
+
   useEffect(() => {
     const fun = async () => {
       try {
@@ -30,8 +45,13 @@ export default function Time({
   }, []);
 
   return (
-    <span className="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded border-purple-400 border">
-      <Link to={`/seats/${theaterTimeMovieId}`}>{time.substring(0, 5)}</Link>
-    </span>
+    <Button
+      variant={
+        selectedTime === `${theaterName}-${time}` ? "default" : "outline"
+      }
+      onClick={handleSelection}
+    >
+      {time}
+    </Button>
   );
 }
