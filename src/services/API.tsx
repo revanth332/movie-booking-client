@@ -7,7 +7,6 @@ import { UserSignup } from "@/components/Signup";
 import "react-toastify/dist/ReactToastify.css";
 import { Publisher } from "@/components/PublisherSignUp";
 import { PublishingMovie } from "@/components/PublishMovie";
-// const token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlNDk4NTk3YS02MDYzLTExZWYtOTM1YS04Y2VjNGJjOTkxNGQiLCJpYXQiOjE3MjQzMjI1NDYsImV4cCI6MTcyNDQwODk0Nn0.t6mGy1Vp-l6fFJmGsT0zEXitPbcrQ8vF9FT5yhjCsig"
 const USER_URL = "http://localhost:8000/v1/user";
 const AUTH_URL = "http://localhost:8000/v1/auth";
 const PUBLISHER_URL = "http://localhost:8000/v1/publisher";
