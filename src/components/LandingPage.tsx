@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import MovieCard from "./MovieCard";
 import API from "../services/API";
 import { useCookies } from "react-cookie";
@@ -16,6 +16,7 @@ export interface Movie {
 function LandingPage(): JSX.Element {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [cookies] = useCookies(["token"]);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fechMovies = async () => {
@@ -58,16 +59,17 @@ function LandingPage(): JSX.Element {
               </button>
               <button
                 type="button"
+                onClick={() => {ref.current?.scrollIntoView({behavior:'smooth'})}}
                 className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
               >
-                <a href="#trending-movies">Show Movies</a>
+                Show Movies
               </button>
             </div>
           </div>
         </div>
         <img src="src\assets\movie-bg.jpg" className="h-full w-full" alt="df" />
       </div>
-      <div className="p-2 mt-5 h-screen w-screen">
+      <div ref={ref} className="p-2 mt-5 h-screen w-screen">
         <h1 className="text-center font-bold text-3xl text-red-500">
           Featured Movies{" "}
         </h1>

@@ -12,13 +12,19 @@ export default function Header({
   const navigate = useNavigate();
   const [cookies, setCookies, removeCookies] = useCookies([
     "token",
+    "theaterToken",
     "userName",
     "userId",
+    "theaterId",
+    "theaterName"
   ]);
   const handleLogout = () => {
-    removeCookies("token");
-    removeCookies("userId");
-    removeCookies("userName");
+    if(cookies.token !== undefined) removeCookies("token");
+    if(cookies.theaterToken !== undefined) removeCookies("theaterToken");
+    if(cookies.userId !== undefined) removeCookies("userId");
+    if(cookies.userName !== undefined) removeCookies("userName");
+    if(cookies.theaterName !== undefined) removeCookies("theaterName");
+    if(cookies.theaterId !== undefined) removeCookies("theaterId");
     setAuthenticated(false);
     navigate("/");
   };
