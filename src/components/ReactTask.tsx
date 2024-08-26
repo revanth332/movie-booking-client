@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 
 export default function ReactTask() {
-  const [data, setData] = useState(5);
+  const [data, setData] = useState([]);
   const [set1Boxes, setSet1Boxes] = useState(
-    [...new Array(data)].map((item) => false)
+    [...new Array(5)].map((item) => false)
   );
   const [set2Boxes, setSet2Boxes] = useState(
-    [...new Array(data)].map((item) => false)
+    [...new Array(5)].map((item) => false)
   );
   const [set1, setSet1] = useState(false);
   const [set2, setSet2] = useState(false);
@@ -73,17 +73,21 @@ export default function ReactTask() {
     }
   }, [set1, set2, set1Boxes, set2Boxes]);
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
   return (
     <div>
-      <form action="">
+      <form onSubmit={handleSubmit}>
         <label htmlFor="">
           Select All
           <input
             type="radio"
             checked={setAll}
-            onChange={handleChangeAll}
+            onClick={handleChangeAll}
             name="sa"
             id=""
+            value={"sa"}
           />
         </label>
         <br />
@@ -91,8 +95,8 @@ export default function ReactTask() {
           Select Set 1
           <input
             type="radio"
-            value={1}
-            onChange={handleChangeSet1}
+            value={"set1"}
+            onClick={handleChangeSet1}
             checked={set1}
             name="s1"
             id=""
@@ -107,9 +111,10 @@ export default function ReactTask() {
               <input
                 key={indx + "set1"}
                 type="radio"
-                onChange={() => handleChangeBox1(indx)}
+                onClick={() => handleChangeBox1(indx)}
                 checked={set1Boxes[indx]}
                 name={indx + "set1"}
+                value={"set1 " + indx}
                 id=""
               />
             </label>
@@ -121,7 +126,7 @@ export default function ReactTask() {
           <input
             type="radio"
             value={1}
-            onChange={handleChangeSet2}
+            onClick={handleChangeSet2}
             checked={set2}
             name="s2"
             id=""
@@ -135,7 +140,7 @@ export default function ReactTask() {
               <input
                 key={indx + "set2"}
                 type="radio"
-                onChange={() => handleChangeBox2(indx)}
+                onClick={() => handleChangeBox2(indx)}
                 checked={set2Boxes[indx]}
                 name={indx + "set2"}
                 id=""
@@ -144,6 +149,7 @@ export default function ReactTask() {
             <br />
           </>
         ))}
+        <button>submit</button>
       </form>
     </div>
   );
