@@ -29,7 +29,7 @@ export default function Moviebanner({ movie }: { movie: Movie }) {
             </div>
             <div className="flex items-center bg-black bg-opacity-50 rounded-full px-3 py-1">
               <CalendarIcon className="mr-1 h-4 w-4" />
-              <span>{movie.release_date}</span>
+              <span>{movie.release_date.substring(0,10)}</span>
             </div>
           </div>
           <div className="space-y-2 mb-6 text-gray-200">

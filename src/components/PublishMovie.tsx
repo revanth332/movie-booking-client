@@ -34,7 +34,7 @@ export interface PublishingMovie {
 
 export default function PublishMovie() {
   const [availableMovies, setAvailableMovies] = useState<Movie[]>([]);
-  const [cookies] = useCookies(["token", "theaterId", "theaterName"]);
+  const [cookies] = useCookies(["theaterToken", "theaterId", "theaterName"]);
   const navigate = useNavigate();
   const [movie, setMovie] = useState<PublishingMovie>({
     movieId: "",
@@ -62,7 +62,14 @@ export default function PublishMovie() {
     e.preventDefault();
     console.log(movie);
     try {
-      const res = await API.post.addMovie(movie, cookies.token);
+      const res = await API.post.addMovie(movie, cookies.theaterToken);
+      setMovie({
+        movieId: "",
+        price: 0,
+        date: "",
+        time: [],
+        theaterId:cookies.theaterId
+      })
       console.log(res);
     } catch (err) {
       console.log(err);
