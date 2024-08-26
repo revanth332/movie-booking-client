@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 
 export default function ReactTask() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<{ set1: string[]; set2: string[] }>({
+    set1: [],
+    set2: [],
+  });
   const [set1Boxes, setSet1Boxes] = useState(
     [...new Array(5)].map((item) => false)
   );
@@ -58,6 +61,12 @@ export default function ReactTask() {
   }
 
   useEffect(() => {
+    setData(() => {
+      data["set1"] = [...new Array(5)].map((_, indx) => "set1" + indx);
+      data["set2"] = [...new Array(5)].map((_, indx) => "set2" + indx);
+      return data;
+    });
+
     if (set1 && set2) setSetAll(() => true);
     else setSetAll(() => false);
 
@@ -75,6 +84,9 @@ export default function ReactTask() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log(data);
+    console.log(data.set1.filter((item, indx) => set1Boxes[indx] === true));
+    console.log(data.set2.filter((item, indx) => set2Boxes[indx] === true));
   };
   return (
     <div>
@@ -114,7 +126,7 @@ export default function ReactTask() {
                 onClick={() => handleChangeBox1(indx)}
                 checked={set1Boxes[indx]}
                 name={indx + "set1"}
-                value={"set1 " + indx}
+                value={data.set1[indx]}
                 id=""
               />
             </label>
@@ -143,6 +155,7 @@ export default function ReactTask() {
                 onClick={() => handleChangeBox2(indx)}
                 checked={set2Boxes[indx]}
                 name={indx + "set2"}
+                value={data.set2[indx]}
                 id=""
               />
             </label>
