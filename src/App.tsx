@@ -46,6 +46,7 @@ function App(): JSX.Element {
               element={<Theaters isAuthenticated={isAuthenticated} />}
             />
             <Route path="/publishMovie" element={<PublishMovie />} />
+            <Route path="/publishedMovies" element={<PublishedMovies />} />
             <Route path="/seats/:theaterTimeMovieId" element={<Seats />} />
             <Route path="/bookings" element={<Bookings />} />
           </Route>
@@ -58,8 +59,7 @@ function App(): JSX.Element {
             path="/publisherSignin"
             element={<PublisherSignIn setAuthenticated={setAuthenticated} />}
           />
-          <Route path="/publisherSignup" element={<PublisherSignUp />} />
-          <Route path="/publishedMovies" element={<PublishedMovies />} />
+          <Route path="/publisherSignup" element={<PublisherSignUp setAuthenticated={setAuthenticated} />} />
           <Route path="/task" element={<ReactTask />} />
           <Route path="/upload" element={<Cloudinary />} />
 

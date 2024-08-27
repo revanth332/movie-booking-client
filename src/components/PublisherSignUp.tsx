@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import API from "@/services/API";
+import { useCookies } from "react-cookie";
 
 export interface Publisher {
   theaterName: string;
@@ -20,12 +21,16 @@ export interface Publisher {
   phone: string;
   password: string;
   capacity: number;
-  state: string;
   city: string;
 }
 
-export default function PublisherSignUp() {
+export default function PublisherSignUp({
+  setAuthenticated,
+}: {
+  setAuthenticated: (isAuthenticated: boolean) => void;
+}) {
   const navigate = useNavigate();
+  const [, setCookie] = useCookies(["theaterToken", "theaterId", "theaterName","role"]);
   const [publisher, setPublisher] = useState<Publisher>({
     theaterName: "",
     theaterAddress: "",
@@ -33,7 +38,6 @@ export default function PublisherSignUp() {
     phone: "",
     password: "",
     capacity: 0,
-    state: "",
     city: "",
   });
 
@@ -42,7 +46,13 @@ export default function PublisherSignUp() {
     try {
       const res = await API.post.publisherSignup(publisher);
       console.log(res)
-      navigate("/publishedMovies"); // Replace with appropriate redirect after successful signup
+      console.log(res);
+      setCookie("theaterToken", res.token);
+      setCookie("theaterId", res.theaterId);
+      setCookie("theaterName", res.theaterName);
+      setCookie("role", res.role);
+      setAuthenticated(true);
+      navigate("/publishedMovies");
     } catch (err) {
       console.log(err);
     }
@@ -131,19 +141,6 @@ export default function PublisherSignUp() {
                   value={publisher.capacity}
                   onChange={(e) =>
                     setPublisher({ ...publisher, capacity: Number(e.target.value) })
-                  }
-                  required
-                />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="state">State</Label>
-                <Input
-                  id="state"
-                  type="string"
-                  placeholder="State"
-                  value={publisher.state}
-                  onChange={(e) =>
-                    setPublisher({ ...publisher, state: e.target.value })
                   }
                   required
                 />

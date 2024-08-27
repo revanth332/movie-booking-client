@@ -26,7 +26,7 @@ export default function PublisherSignIn({
   setAuthenticated: (isAuthenticated: boolean) => void;
 }) {
   const [user, setUser] = useState<UserSignin>({ phone: "", password: "" });
-  const [cookies, setCookie] = useCookies(["token", "theaterId", "theaterName"]);
+  const [, setCookie] = useCookies(["theaterToken", "theaterId", "theaterName","role"]);
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -34,9 +34,10 @@ export default function PublisherSignIn({
     try {
       const res = await API.post.publisherSignin(user);
       console.log(res);
-      setCookie("token", res.token);
+      setCookie("theaterToken", res.token);
       setCookie("theaterId", res.theaterId);
       setCookie("theaterName", res.theaterName);
+      setCookie("role", res.role);
       setAuthenticated(true);
       navigate("/publishedMovies");
       console.log(res.token);

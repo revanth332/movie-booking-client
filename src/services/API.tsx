@@ -7,6 +7,7 @@ import { UserSignup } from "@/components/Signup";
 import "react-toastify/dist/ReactToastify.css";
 import { Publisher } from "@/components/PublisherSignUp";
 import { PublishingMovie } from "@/components/PublishMovie";
+import { PublishedMovie } from "@/components/PublishedMovies";
 const USER_URL = "http://localhost:8000/v1/user";
 const AUTH_URL = "http://localhost:8000/v1/auth";
 const PUBLISHER_URL = "http://localhost:8000/v1/publisher";
@@ -115,9 +116,9 @@ export default {
     getPublishedMovies: async (
       theaterId: string,
       token: string
-    ): Promise<Movie[]> => {
+    ): Promise<PublishedMovie[]> => {
       try {
-        const response = await axios.get<Movie[]>(
+        const response = await axios.get<PublishedMovie[]>(
           `${PUBLISHER_URL}/getPublishedMovies?theaterId=${theaterId}`,
           {
             headers: {

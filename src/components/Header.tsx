@@ -10,21 +10,26 @@ export default function Header({
   setAuthenticated: (isAuthenticated: boolean) => void;
 }): JSX.Element {
   const navigate = useNavigate();
-  const [cookies, setCookies, removeCookies] = useCookies([
+  const [cookies, , removeCookies] = useCookies([
     "token",
     "theaterToken",
     "userName",
     "userId",
     "theaterId",
-    "theaterName"
+    "theaterName",
+    "role",
   ]);
   const handleLogout = () => {
-    if(cookies.token !== undefined) removeCookies("token");
-    if(cookies.theaterToken !== undefined) removeCookies("theaterToken");
-    if(cookies.userId !== undefined) removeCookies("userId");
-    if(cookies.userName !== undefined) removeCookies("userName");
-    if(cookies.theaterName !== undefined) removeCookies("theaterName");
-    if(cookies.theaterId !== undefined) removeCookies("theaterId");
+    if(cookies.role === "publisher"){
+      removeCookies("token");
+      removeCookies("theaterName");
+      removeCookies("theaterId");
+    }
+    else if(cookies.role === "user"){
+      removeCookies("theaterToken");
+      removeCookies("userId");
+      removeCookies("userName");
+    }
     setAuthenticated(false);
     navigate("/");
   };
@@ -38,25 +43,46 @@ export default function Header({
       <div>
         {isAuthenticated ? (
           <ul className="flex text-white">
-            <li className="block px-4 py-2">Hi! {cookies.userName}</li>
-            <li>
-              <Link className="block px-4 py-2 hover:font-bold" to="/">
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link className="block px-4 py-2 hover:font-bold" to="/bookings">
-                Bookings
-              </Link>
-            </li>
-            <li>
-              <Link
-                className="block px-4 py-2 hover:font-bold"
-                to="/publishMovie"
-              >
-                Publish
-              </Link>
-            </li>
+
+            {cookies.role === "user" && (
+              <>
+              <li className="block px-4 py-2">Hi! {cookies.userName}</li>
+                <li>
+                  <Link className="block px-4 py-2 hover:font-bold" to="/">
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="block px-4 py-2 hover:font-bold"
+                    to="/bookings"
+                  >
+                    Bookings
+                  </Link>
+                </li>
+              </>
+            )}
+
+            {cookies.role === "publisher" && (
+              <>
+                <li>
+                  <Link
+                    className="block px-4 py-2 hover:font-bold"
+                    to="/publishMovie"
+                  >
+                    Publish
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="block px-4 py-2 hover:font-bold"
+                    to="/publishedMovies"
+                  >
+                    Publish
+                  </Link>
+                </li>
+              </>
+            )}
             <li>
               <button
                 onClick={handleLogout}
