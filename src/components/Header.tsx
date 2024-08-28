@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { useEffect } from "react";
 
@@ -12,24 +12,18 @@ export default function Header({
   const navigate = useNavigate();
   const [cookies, , removeCookies] = useCookies([
     "token",
-    "theaterToken",
     "userName",
     "userId",
-    "theaterId",
-    "theaterName",
     "role",
   ]);
+
+  const location = useLocation()
+
   const handleLogout = () => {
-    if(cookies.role === "publisher"){
-      removeCookies("token");
-      removeCookies("theaterName");
-      removeCookies("theaterId");
-    }
-    else if(cookies.role === "user"){
-      removeCookies("theaterToken");
-      removeCookies("userId");
-      removeCookies("userName");
-    }
+    removeCookies("token");
+    removeCookies("userId");
+    removeCookies("userName");
+    removeCookies("role")
     setAuthenticated(false);
     navigate("/");
   };
@@ -43,13 +37,12 @@ export default function Header({
       <div>
         {isAuthenticated ? (
           <ul className="flex text-white">
-
             {cookies.role === "user" && (
               <>
-              <li className="block px-4 py-2">Hi! {cookies.userName}</li>
+                <li className="block px-4 py-2">Hi! {cookies.userName}</li>
                 <li>
                   <Link className="block px-4 py-2 hover:font-bold" to="/">
-                    Home
+                      Home
                   </Link>
                 </li>
                 <li>
@@ -78,7 +71,7 @@ export default function Header({
                     className="block px-4 py-2 hover:font-bold"
                     to="/publishedMovies"
                   >
-                    Publish
+                    Releases
                   </Link>
                 </li>
               </>
@@ -112,17 +105,9 @@ export default function Header({
             <li>
               <Link
                 className="block px-4 py-2 hover:font-bold"
-                to="/publisherSignin"
-              >
-                Publisher SignIn
-              </Link>
-            </li>
-            <li>
-              <Link
-                className="block px-4 py-2 hover:font-bold"
                 to="/publisherSignup"
               >
-                Publisher SignUp
+                Exibitor
               </Link>
             </li>
           </ul>

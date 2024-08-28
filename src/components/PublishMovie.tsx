@@ -9,41 +9,35 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 import { Label } from "@/components/ui/label";
 import { useEffect, useState } from "react";
 import API from "@/services/API";
 import { useNavigate } from "react-router-dom";
-import Header from "./Header";
 import { Movie } from "./LandingPage";
+import { ToastContainer, toast } from "react-toastify";
+import { Loader2 } from "lucide-react";
 
 export interface PublishingMovie {
   movieId: string;
   price: number;
   date: string;
   time: string[];
-  theaterId:string;
+  theaterId: string;
 }
 
 export default function PublishMovie() {
   const [availableMovies, setAvailableMovies] = useState<Movie[]>([]);
-  const [cookies] = useCookies(["theaterToken", "theaterId", "theaterName"]);
+  const [cookies] = useCookies(["token", "userId"]);
+  const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
   const [movie, setMovie] = useState<PublishingMovie>({
     movieId: "",
     price: 0,
     date: "",
     time: [],
-    theaterId:cookies.theaterId
+    theaterId: cookies.userId,
   });
-
 
   useEffect(() => {
     const fechMovies = async () => {
@@ -60,18 +54,24 @@ export default function PublishMovie() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(movie);
+    setSubmitting(true);
     try {
-      const res = await API.post.addMovie(movie, cookies.theaterToken);
+      const res = await API.post.addMovie(movie, cookies.token);
+      if(res){
+        setSubmitting(false);
+      }
+      notify("success", new Error());
       setMovie({
         movieId: "",
         price: 0,
         date: "",
         time: [],
-        theaterId:cookies.theaterId
-      })
+        theaterId: cookies.userId,
+      });
       console.log(res);
     } catch (err) {
+      setSubmitting(false);
+      notify("error", err as Error);
       console.log(err);
     }
   };
@@ -92,13 +92,11 @@ export default function PublishMovie() {
     const { value, checked } = e.target;
 
     if (checked) {
-      // Add the selected time to the array
       setMovie((prevMovie) => ({
         ...prevMovie,
         time: [...prevMovie.time, value],
       }));
     } else {
-      // Remove the unselected time from the array
       setMovie((prevMovie) => ({
         ...prevMovie,
         time: prevMovie.time.filter((time) => time !== value),
@@ -106,8 +104,17 @@ export default function PublishMovie() {
     }
   };
 
+  const notify = (type: string, err: Error) => {
+    if (type === "success") {
+      toast.success("Successfully Cancelled show!");
+    } else {
+      toast.error(err.message);
+    }
+  };
+
   return (
     <div className="w-screen h-screen flex justify-center items-center">
+      <ToastContainer />
       <form onSubmit={handleSubmit}>
         <Card className="mx-auto w-[400px]">
           <CardHeader>
@@ -126,8 +133,10 @@ export default function PublishMovie() {
                   className="border rounded-md px-2 py-1 text-gray-700 focus:outline-none focus:ring-black focus:border-black"
                 >
                   <option value="">Select Movie</option>
-                  {availableMovies.map((item) => (
-                    <option value={item.movie_id}>{item.movie_name}</option>
+                  {availableMovies.map((item, indx) => (
+                    <option key={indx} value={item.movie_id}>
+                      {item.movie_name}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -168,8 +177,8 @@ export default function PublishMovie() {
                   <label>
                     <input
                       type="checkbox"
-                      value="01:00"
-                      checked={movie.time.includes("01:00")}
+                      value="13:00"
+                      checked={movie.time.includes("13:00")}
                       onChange={handleTimeChange}
                       className="mr-2"
                     />
@@ -188,8 +197,8 @@ export default function PublishMovie() {
                   <label>
                     <input
                       type="checkbox"
-                      value="19:00"
-                      checked={movie.time.includes("19:00")}
+                      value="19:30"
+                      checked={movie.time.includes("19:30")}
                       onChange={handleTimeChange}
                       className="mr-2"
                     />
@@ -197,9 +206,16 @@ export default function PublishMovie() {
                   </label>
                 </div>
               </div>
-              <Button type="submit" className="w-full">
-                Add Movie
-              </Button>
+              {!submitting ? (
+                <Button type="submit" className="w-full">
+                  Add Movie
+                </Button>
+              ) : (
+                <Button disabled>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Please wait...
+                </Button>
+              )}
             </div>
           </CardContent>
         </Card>

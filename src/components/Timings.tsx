@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import API from "@/services/API";
 import { useCookies } from "react-cookie";
 import Time from "./Time";
-import { Button } from "./ui/button";
 import { Theater } from "./Theaters";
 
 export interface Showtime {
@@ -41,21 +40,10 @@ export default function Timings({
     fetchTheaters();
   }, []);
   return (
-    <div>
-      {/* {
-            timings.map((time,indx) => <Time theaterMovieId={theater_movie_id} time={time.time} />)
-        } */}
+    <div className="flex gap-2">
       {timings.map((time, timeIndex) => (
-        // <Button
-        //   key={timeIndex}
-        //   variant={
-        //     selectedTime === `${theater.theater_name}-${time.time}` ? "default" : "outline"
-        //   }
-        //   onClick={() => setSelectedTime(`${theater.theater_name}-${time.time}`)}
-        // >
-        //   {time.time}
-        // </Button>
         <Time
+          key={timeIndex}
           setSelectedMovieTimeId={setSelectedMovieTimeId}
           theaterName={theater.theater_name}
           selectedTime={selectedTime}

@@ -12,6 +12,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import API from "@/services/API";
+import { useCookies } from "react-cookie";
+import { ToastContainer, toast } from 'react-toastify';
 
 export interface UserSignup {
   firstName: string;
@@ -23,7 +25,12 @@ export interface UserSignup {
   dob: string;
 }
 
-export default function Signup() {
+export default function Signup({
+  setAuthenticated,
+}: {
+  setAuthenticated: (isAuthenticated: boolean) => void;
+}) {
+  const [, setCookie] = useCookies(["token", "userId", "userName","role"]);
     const navigate = useNavigate();
   const [user, setUser] = useState<UserSignup>({
     firstName: "",
@@ -39,15 +46,24 @@ export default function Signup() {
     e.preventDefault();
     try{
         const res = await API.post.signup(user);
-        navigate("/")
+        setCookie("token", res.token);
+        setCookie("userId", res.userId);
+        setCookie("userName", res.userName);
+        setCookie("role",res.role)
+        setAuthenticated(true);
+        navigate("/");
     }
     catch(err){
+      notify(err as Error)
         console.log(err);
     }
   }
 
+  const notify = (err : Error) => toast.error("Failed to Signup : "+err.message);
+
   return (
     <div className="w-screen h-screen flex justify-center items-center">
+          <ToastContainer /> 
         <form onSubmit={handleSubmit}>
       <Card className="mx-auto max-w-sm">
         <CardHeader>

@@ -100,7 +100,7 @@ export default function Seats() {
       </button>
     ) : (
       <button
-        className={`w-10 h-10 m-1 flex items-center justify-center border rounded bg-secondary`}
+        className={`w-10 h-10 m-1 flex items-center justify-center border rounded bg-slate-500`}
       >
         {number}
       </button>

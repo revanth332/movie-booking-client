@@ -2,6 +2,7 @@ import Rating from "./Rating";
 import { Movie } from "./LandingPage";
 import { CalendarIcon, ClockIcon, StarIcon } from "lucide-react";
 import { Button } from "./ui/button";
+import { Link } from "react-router-dom";
 
 export default function Moviebanner({ movie }: { movie: Movie }) {
   return (
@@ -43,9 +44,12 @@ export default function Moviebanner({ movie }: { movie: Movie }) {
                   <strong>Cast:</strong> {movie.cast}
                 </p> */}
           </div>
+          <Link to="https://www.youtube.com/watch?v=NhSz86YpihM">
           <Button size="lg" className="bg-white text-black hover:bg-gray-200">
             Watch Trailer
           </Button>
+          </Link>
+          
         </div>
       </div>
     </section>

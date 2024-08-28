@@ -6,13 +6,13 @@ import Moviebanner from "./Moviebanner";
 import { useCookies } from "react-cookie";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { StarIcon, ClockIcon, CalendarIcon } from "lucide-react";
 
 export interface Theater {
   theater_movie_id: string;
   theater_name: string;
-  address: string;
+  theater_address: string;
   price: number;
+  date:string;
 }
 
 export default function Theaters({
@@ -24,7 +24,6 @@ export default function Theaters({
   const [selectedMovieTimeId, setSelectedMovieTimeId] = useState("");
   const location = useLocation();
   const [cookies] = useCookies(["token"]);
-  const movieData = location.state;
   const [theaters, setTheaters] = useState<Theater[]>([]);
   const params = useParams();
   const navigate = useNavigate();
@@ -54,29 +53,6 @@ export default function Theaters({
   };
 
   return (
-    // <div>
-    //   <Moviebanner movie={movieData} />
-    //   <div className="grid grid-cols-4 gap-5 p-2 mt-2">
-    //     {theaters.map((theater, indx) => (
-    //       <div
-    //         key={indx}
-    //         className="shadow-lg bg-slate-200 max-w-sm p-6  border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700"
-    //       >
-    //         <a href="#">
-    //           <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-    //             {theater.theater_name}
-    //           </h5>
-    //         </a>
-    //         <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-    //           {theater.address}
-    //         </p>
-    //         <p className="text-green-600">$ {theater.price}</p>
-    //         <br />
-    //         <Timings theater_movie_id={theater.theater_movie_id} />
-    //       </div>
-    //     ))}
-    //   </div>
-    // </div>
 
     <main className="flex-1">
       <Moviebanner movie={location.state} />
@@ -86,13 +62,16 @@ export default function Theaters({
             Available Theaters
           </h2>
           <div className="grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
-            {theaters.map((theater, index) => (
+            {theaters.filter((theater) => new Date(theater.date) >= new Date()).map((theater, index) => (
               <Card key={index} className="w-full">
                 <CardContent className="p-6">
+                  <div className="flex justify-between">
                   <h3 className="text-2xl font-bold mb-2">
                     {theater.theater_name}
                   </h3>
-                  <p className="text-gray-500 mb-4">{theater.address}</p>
+                  <p className="text-sm font-mono font-bold text-gray-500 mb-4">{theater.date.substring(0,10)}</p>
+                  </div>
+                  <p className="text-gray-800 mb-4">{theater.theater_address}</p>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
                     <Timings
                       theater={theater}

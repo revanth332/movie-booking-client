@@ -26,7 +26,7 @@ function App(): JSX.Element {
       console.log(token, isAuthenticated);
     }
     // console.log(token,isAuthenticated);
-  });
+  },[cookies]);
   return (
     <CookiesProvider>
       <BrowserRouter>
@@ -50,7 +50,10 @@ function App(): JSX.Element {
             <Route path="/seats/:theaterTimeMovieId" element={<Seats />} />
             <Route path="/bookings" element={<Bookings />} />
           </Route>
-          <Route path="/signup" element={<Signup />} />
+          <Route
+            path="/signup"
+            element={<Signup setAuthenticated={setAuthenticated} />}
+          />
           <Route
             path="/signin"
             element={<Signin setAuthenticated={setAuthenticated} />}
@@ -59,7 +62,10 @@ function App(): JSX.Element {
             path="/publisherSignin"
             element={<PublisherSignIn setAuthenticated={setAuthenticated} />}
           />
-          <Route path="/publisherSignup" element={<PublisherSignUp setAuthenticated={setAuthenticated} />} />
+          <Route
+            path="/publisherSignup"
+            element={<PublisherSignUp setAuthenticated={setAuthenticated} />}
+          />
           <Route path="/task" element={<ReactTask />} />
           <Route path="/upload" element={<Cloudinary />} />
 

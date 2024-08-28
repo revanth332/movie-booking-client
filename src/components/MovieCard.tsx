@@ -45,7 +45,7 @@ export default function MovieCard({ movie }: { movie: Movie }): JSX.Element {
           </p>
           <div className="flex items-center gap-2 mb-4">
             <PlayCircleIcon className="h-4 w-4" />
-            <span className="text-sm">Watch Trailer</span>
+            <span className="text-sm"><Link to="https://www.youtube.com/watch?v=NhSz86YpihM">Watch Trailer</Link></span>
           </div>
           <div className="flex items-center gap-2 mb-4">
             <CalendarIcon className="h-4 w-4" />

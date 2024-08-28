@@ -91,6 +91,7 @@ export default {
     },
     addMovie: async (movie: PublishingMovie, token: string) => {
       try {
+        // console.log(movie)
         const response = await axios.post(`${PUBLISHER_URL}/addMovie`, movie, {
           headers: {
             Authorization: "Bearer " + token,
@@ -214,4 +215,22 @@ export default {
       }
     },
   },
+  delete:{
+    cancelPublishedMovie: async (token: string, theaterMovieTimeId: string,date:string) => {
+      try {
+        const response = await axios.delete(
+          `${PUBLISHER_URL}/cancelPublishedMovie?theaterMovieTimeId=${theaterMovieTimeId}&?date=${date}`,
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
+        console.log(response);
+        return response.data;
+      } catch (err) {
+        throw err;
+      }
+    } 
+  }
 };

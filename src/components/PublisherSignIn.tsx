@@ -13,7 +13,7 @@ import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import API from "@/services/API";
 import { useNavigate } from "react-router-dom";
-import Header from "./Header";
+import { ToastContainer, toast } from 'react-toastify';
 
 export interface UserSignin {
   phone: string;
@@ -26,32 +26,36 @@ export default function PublisherSignIn({
   setAuthenticated: (isAuthenticated: boolean) => void;
 }) {
   const [user, setUser] = useState<UserSignin>({ phone: "", password: "" });
-  const [, setCookie] = useCookies(["theaterToken", "theaterId", "theaterName","role"]);
+  const [, setCookie] = useCookies(["token", "userId", "userName","role"]);
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const res = await API.post.publisherSignin(user);
+      const res = await API.post.signin(user);
       console.log(res);
-      setCookie("theaterToken", res.token);
-      setCookie("theaterId", res.theaterId);
-      setCookie("theaterName", res.theaterName);
+      setCookie("token", res.token);
+      setCookie("userId", res.theaterId);
+      setCookie("userName", res.theaterName);
       setCookie("role", res.role);
       setAuthenticated(true);
       navigate("/publishedMovies");
       console.log(res.token);
     } catch (err) {
-      console.log(err);
+      notify(err as Error)
+      console.log(typeof(err));
     }
   };
 
+  const notify = (err : Error) => toast.error("Failed to Signin : "+err.message);
+
   return (
-    <div className="w-screen h-screen flex justify-center items-center">  
+    <div className="w-screen h-screen flex justify-center items-center"> 
+    <ToastContainer /> 
       <form onSubmit={handleSubmit}>
         <Card className="mx-auto max-w-sm">
           <CardHeader>
-            <CardTitle className="text-2xl">Login</CardTitle>
+            <CardTitle className="text-2xl">Publisher Login</CardTitle>
             <CardDescription>
               Enter your phone number below to login to your account
             </CardDescription>
@@ -70,6 +74,7 @@ export default function PublisherSignIn({
                 />
               </div>
               <div className="grid gap-2">
+              <Label htmlFor="phone">Password</Label>
                 <Input
                   id="password"
                   type="password"

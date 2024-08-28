@@ -13,6 +13,7 @@ import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import API from "@/services/API";
 import { useCookies } from "react-cookie";
+import { ToastContainer, toast } from 'react-toastify';
 
 export interface Publisher {
   theaterName: string;
@@ -30,7 +31,7 @@ export default function PublisherSignUp({
   setAuthenticated: (isAuthenticated: boolean) => void;
 }) {
   const navigate = useNavigate();
-  const [, setCookie] = useCookies(["theaterToken", "theaterId", "theaterName","role"]);
+  const [, setCookie] = useCookies(["token", "userId", "userName","role"]);
   const [publisher, setPublisher] = useState<Publisher>({
     theaterName: "",
     theaterAddress: "",
@@ -47,19 +48,23 @@ export default function PublisherSignUp({
       const res = await API.post.publisherSignup(publisher);
       console.log(res)
       console.log(res);
-      setCookie("theaterToken", res.token);
-      setCookie("theaterId", res.theaterId);
-      setCookie("theaterName", res.theaterName);
+      setCookie("token", res.token);
+      setCookie("userId", res.theaterId);
+      setCookie("userName", res.theaterName);
       setCookie("role", res.role);
       setAuthenticated(true);
       navigate("/publishedMovies");
     } catch (err) {
+      notify(err as Error)
       console.log(err);
     }
   };
 
+  const notify = (err : Error) => toast.error("Failed to Signup : "+err.message);
+
   return (
     <div className="w-screen h-screen flex justify-center p-5">
+          <ToastContainer /> 
       <form onSubmit={handleSubmit}>
         <Card className="mx-auto max-w-sm">
           <CardHeader>
@@ -164,7 +169,7 @@ export default function PublisherSignUp({
           </div>
           <div className="mt-4 text-center text-sm">
             Already have an account?{" "}
-            <Link to="/pubisherSignin" className="underline">
+            <Link to="/publisherSignin" className="underline">
               Sign in
             </Link>
           </div>

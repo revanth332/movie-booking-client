@@ -13,7 +13,7 @@ import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import API from "@/services/API";
 import { useNavigate } from "react-router-dom";
-import Header from "./Header";
+import { ToastContainer, toast } from 'react-toastify';
 
 export interface UserSignin {
   phone: string;
@@ -26,7 +26,7 @@ export default function Signin({
   setAuthenticated: (isAuthenticated: boolean) => void;
 }) {
   const [user, setUser] = useState<UserSignin>({ phone: "", password: "" });
-  const [cookies, setCookie] = useCookies(["token", "userId", "userName"]);
+  const [, setCookie] = useCookies(["token", "userId", "userName","role"]);
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -37,16 +37,21 @@ export default function Signin({
       setCookie("token", res.token);
       setCookie("userId", res.userId);
       setCookie("userName", res.userName);
+      setCookie("role", res.role);
       setAuthenticated(true);
       navigate("/");
       console.log(res.token);
     } catch (err) {
+      notify(err as Error)
       console.log(err);
     }
   };
 
+  const notify = (err : Error) => toast.error("Failed to Signin : "+err.message);
+
   return (
     <div className="w-screen h-screen flex justify-center items-center">  
+        <ToastContainer /> 
       <form onSubmit={handleSubmit}>
         <Card className="mx-auto max-w-sm">
           <CardHeader>

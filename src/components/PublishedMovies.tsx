@@ -1,21 +1,24 @@
 import API from "@/services/API";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
+import { convertTo12HourFormat } from "./Time";
 
 export interface PublishedMovie{
   movie_name:string;
   description:string;
   price:number;
-  date:Date;
+  date:string;
+  time:string,
+  theater_movie_time_id:string
 }
 
 export default function PublishedMovies() {
     const [movies,setMovies] = useState<PublishedMovie[]>([]);
-    const [cookies] = useCookies();
+    const [cookies] = useCookies(["userId","token"]);
     useEffect(() => {
         const fechMovies = async () => {
             try{
-                const movies  = await API.get.getPublishedMovies(cookies.theaterId,cookies.token);
+                const movies  = await API.get.getPublishedMovies(cookies.userId,cookies.token);
                 setMovies(movies);
                 console.log(movies)
             }
@@ -26,11 +29,22 @@ export default function PublishedMovies() {
         fechMovies();
     },[])
 
+    const cancelPublishedMovie = async (theaterMovieTimeId : string,date:string) => {
+        try{
+            const res = await API.delete.cancelPublishedMovie(cookies.token,theaterMovieTimeId,date)
+            console.log(res);
+            setMovies((prev) => prev.filter(movie => movie.theater_movie_time_id != theaterMovieTimeId))
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+
   return (
     <div className="mt-5">
       <h1 className="text-2xl mb-5 font-bold leading-7 text-center text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">Published Movies</h1>
 
-<div className="relative w-3/4 overflow-x-auto mx-auto shadow-md sm:rounded-lg">
+<div className="relative lg:w-3/4 overflow-x-auto mx-auto shadow-md sm:rounded-lg">
     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className="text-xs uppercase bg-gray-700 text-gray-400">
             <tr>
@@ -41,19 +55,22 @@ export default function PublishedMovies() {
                 Description
                 </th>
                 <th scope="col" className="px-6 py-3">
-                    Category
-                </th>
-                <th scope="col" className="px-6 py-3">
                 Date
                 </th>
                 <th scope="col" className="px-6 py-3">
+                Time
+                </th>
+                <th scope="col" className="px-6 py-3">
                 Price
+                </th>
+                <th scope="col" className="px-6 py-3">
+                Action
                 </th>
             </tr>
         </thead>
         <tbody>
             {
-              movies.map((movie,indx) => <tr key={indx} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+              movies ? movies.map((movie,indx) => <tr key={indx} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
               <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   {movie.movie_name}
               </th>
@@ -64,31 +81,21 @@ export default function PublishedMovies() {
                   {movie.date.toString().substring(0,10)}
               </td>
               <td className="px-6 py-4">
+                  {convertTo12HourFormat(movie.time.toString().substring(0,5))}
+              </td>
+              <td className="px-6 py-4">
                   Rs.{movie.price}
               </td>
               <td className="px-6 py-4">
-                  <a href="#" className="font-medium text-red-600  hover:underline">Cancel</a>
+                  <button className="font-medium text-red-600" onClick={() => cancelPublishedMovie(movie.theater_movie_time_id,movie.date)}>Cancel</button>
               </td>
-          </tr>)
+          </tr>) : <tr>
+            <td colSpan={5} className="text-center font-bold text-xl p-2">{"No published movies"}</td></tr>
             }
             
         </tbody>
     </table>
 </div>
-
-        {/* {
-            movies.map((movie) => <div className="relative h-full w-full">
-            <img
-              src="src\assets\devara2.jpg"
-              alt={movie.movie_name}
-              className="h-full w-full object-cover"
-            />
-            <div className="absolute top-0 left-0 right-0 bottom-0 flex flex-col items-center justify-center bg-black bg-opacity-70">
-              <h2 className="text-white text-2xl font-bold">{movie.movie_name}</h2>
-              <p className="text-white text-lg mt-2">{movie.description}</p>
-            </div>
-          </div>)
-        } */}
 
     </div>
   )
