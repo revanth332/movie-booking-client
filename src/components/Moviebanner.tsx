@@ -13,7 +13,10 @@ export default function Moviebanner({ movie }: { movie: Movie }) {
       }}
     >
       <div className="absolute inset-0 bg-gradient-to-r from-purple-900 via-blue-900 to-teal-900 opacity-90"></div>
-      <div className="container px-4 md:px-6 relative z-10">
+      <div className="container flex px-4 md:px-6 relative z-10">
+        <div>
+          <img src={movie.poster_url} alt="" />
+        </div>
         <div className="max-w-3xl mx-auto">
           <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none mb-4">
             {movie.movie_name}
@@ -22,7 +25,7 @@ export default function Moviebanner({ movie }: { movie: Movie }) {
           <div className="flex flex-wrap gap-4 text-sm mb-6">
             <div className="flex items-center bg-black bg-opacity-50 rounded-full px-3 py-1">
               <StarIcon className="mr-1 h-4 w-4 text-yellow-400" />
-              <span>{movie.rating}/5</span>
+              <span>{movie.rating}/10</span>
             </div>
             <div className="flex items-center bg-black bg-opacity-50 rounded-full px-3 py-1">
               <ClockIcon className="mr-1 h-4 w-4" />

@@ -19,50 +19,57 @@ import { ToastContainer, toast } from "react-toastify";
 import { Loader2 } from "lucide-react";
 
 export interface PublishingMovie {
-  movieId: string;
+  imdbID: string;
   price: number;
   date: string;
   time: string[];
   theaterId: string;
 }
 
+export interface Pmovie{
+  Title:string,
+  imdbID:string
+}
+
 export default function PublishMovie() {
-  const [availableMovies, setAvailableMovies] = useState<Movie[]>([]);
+  const [availableMovies, setAvailableMovies] = useState<Pmovie[]>([]);
   const [cookies] = useCookies(["token", "userId"]);
   const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
   const [movie, setMovie] = useState<PublishingMovie>({
-    movieId: "",
+    imdbID: "",
     price: 0,
     date: "",
     time: [],
     theaterId: cookies.userId,
   });
 
+  const fechMovies = async (name : string) => {
+    try {
+      const movies = await API.get.getExternalMovies(name);
+      setAvailableMovies(movies);
+      console.log(movies);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
-    const fechMovies = async () => {
-      try {
-        const movies = await API.get.getMovies();
-        setAvailableMovies(movies);
-        console.log(movies);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fechMovies();
+    fechMovies("hello");
   }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSubmitting(true);
     try {
+      console.log(movie)
       const res = await API.post.addMovie(movie, cookies.token);
       if(res){
         setSubmitting(false);
       }
       notify("success", new Error());
       setMovie({
-        movieId: "",
+        imdbID: "",
         price: 0,
         date: "",
         time: [],
@@ -76,8 +83,10 @@ export default function PublishMovie() {
     }
   };
 
-  const handleMovieNameChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setMovie({ ...movie, movieId: e.target.value });
+  const handleMovieNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const imdbID = availableMovies?.filter(item => item.Title === e.target.value)[0]?.imdbID;
+    fechMovies(e.target.value);
+    setMovie({ ...movie, imdbID });
   };
 
   const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -106,7 +115,7 @@ export default function PublishMovie() {
 
   const notify = (type: string, err: Error) => {
     if (type === "success") {
-      toast.success("Successfully Cancelled show!");
+      toast.success("Successfully Added show!");
     } else {
       toast.error(err.message);
     }
@@ -125,7 +134,7 @@ export default function PublishMovie() {
             <div className="grid gap-4">
               <div className="grid gap-2">
                 <Label htmlFor="movieName">Movie Name</Label>
-                <select
+                {/* <select
                   id="movieName"
                   value={movie.movieId}
                   onChange={handleMovieNameChange}
@@ -138,7 +147,20 @@ export default function PublishMovie() {
                       {item.movie_name}
                     </option>
                   ))}
-                </select>
+                </select> */}
+                <Input
+                  id="movieName"
+                  type="text"
+                  placeholder="Choose movie"
+                  required
+                  list="movies"
+                  onChange={handleMovieNameChange}
+                />
+                <datalist id="movies">
+                  {availableMovies?.map((item, indx) => (
+                      <option key={indx} value={item.Title} />
+                    ))}
+                </datalist>
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="price">Price</Label>
@@ -203,6 +225,16 @@ export default function PublishMovie() {
                       className="mr-2"
                     />
                     Night
+                  </label>
+                  <label>
+                    <input
+                      type="checkbox"
+                      value="22:30"
+                      checked={movie.time.includes("22:30")}
+                      onChange={handleTimeChange}
+                      className="mr-2"
+                    />
+                    Late Night
                   </label>
                 </div>
               </div>

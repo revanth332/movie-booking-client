@@ -11,6 +11,10 @@ export interface Movie {
   release_date: string;
   duration: string;
   genre: string;
+  poster_url:string;
+  actors:string;
+  language:string;
+  director:string;
 }
 
 function LandingPage(): JSX.Element {
@@ -69,41 +73,30 @@ function LandingPage(): JSX.Element {
         </div>
         <img src="src\assets\movie-bg.jpg" className="h-full w-full" alt="df" />
       </div>
+      {
+        movies.length > 0 ? 
       <div ref={ref} className="p-2 mt-5 h-screen w-screen">
-        <h1 className="text-center font-bold text-3xl text-red-500">
-          Featured Movies{" "}
-        </h1>
-        <br />
-        <div
-          id="trending-movies"
-          className="flex overflow-x-auto space-x-4 pb-4 scrollbar-hide w-screen"
-        >
-          {movies
-            .filter((movie) => new Date(movie.release_date) > new Date())
-            .map((movie, indx) => (
-              <MovieCard key={indx} movie={movie} />
-            ))}
-        </div>
-        <br />
         <h1 className="text-center font-bold text-3xl text-red-500">
           Top Rated Movies{" "}
         </h1>
         <br />
         <div
           id="trending-movies"
-          className="flex overflow-x-auto space-x-4 pb-4 scrollbar-hide w-screen"
+          className="flex overflow-x-auto space-x-4 p-5 scrollbar-hide w-screen"
+          style={{scrollbarWidth:"thin"}}
         >
           {movies
             .filter(
               (movie) =>
-                movie.rating > 7 && new Date(movie.release_date) < new Date()
+                movie.rating > 4
             )
             .map((movie, indx) => (
               <MovieCard key={indx} movie={movie} />
             ))}
         </div>
-      </div>
-    </div>
+      </div>: <h1>No movies found</h1>
+          }
+    </div> 
   );
 }
 

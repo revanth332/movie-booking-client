@@ -25,17 +25,16 @@ export default function MovieCard({ movie }: { movie: Movie }): JSX.Element {
   };
 
   return (
-    <Card className="flex-shrink-0 w-[350px] relative overflow-hidden group">
+    <Card className="flex-shrink-0 w-[250px] relative overflow-hidden group">
       <img
         alt={`Movie poster`}
         className="object-cover w-full transition-transform duration-300 group-hover:scale-110"
-        height="400"
-        src="src\assets\poster.jpg"
+
+        src={movie.poster_url}
         style={{
           aspectRatio: "300/400",
           objectFit: "cover",
         }}
-        width="300"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
         <div className="absolute bottom-0 left-0 right-0 p-4 text-white">

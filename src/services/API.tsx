@@ -6,7 +6,7 @@ import { UserSignin } from "@/components/Signin";
 import { UserSignup } from "@/components/Signup";
 import "react-toastify/dist/ReactToastify.css";
 import { Publisher } from "@/components/PublisherSignUp";
-import { PublishingMovie } from "@/components/PublishMovie";
+import { Pmovie, PublishingMovie } from "@/components/PublishMovie";
 import { PublishedMovie } from "@/components/PublishedMovies";
 const USER_URL = "http://localhost:8000/v1/user";
 const AUTH_URL = "http://localhost:8000/v1/auth";
@@ -110,6 +110,16 @@ export default {
           `http://localhost:8000/v1/getTrendingMovies`
         );
         return response.data;
+      } catch (err) {
+        throw err;
+      }
+    },
+    getExternalMovies : async (name : string): Promise<Pmovie[]> => {
+      try {
+        const response = await axios.get(
+          `http://www.omdbapi.com/?s=${name}&y=2024&type=movie&page=1&apikey=658d4be7`
+        );
+        return response.data.Search;
       } catch (err) {
         throw err;
       }
