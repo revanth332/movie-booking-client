@@ -108,7 +108,7 @@ export default {
     getMovies: async (): Promise<Movie[]> => {
       try {
         const response = await axios.get<Movie[]>(
-          `${USER_URL}/getTrendingMovies`
+          `${VITE_URL}/getTrendingMovies`
         );
         return response.data;
       } catch (err) {
