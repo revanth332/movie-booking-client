@@ -11,6 +11,7 @@ import { PublishedMovie } from "@/components/PublishedMovies";
 const USER_URL = import.meta.env.VITE_USER_URL;
 const AUTH_URL = import.meta.env.VITE_AUTH_URL;
 const PUBLISHER_URL = import.meta.env.VITE_PUBLISHER_URL;
+const VITE_URL = import.meta.env.VITE_URL;
 
 export default {
   post: {
@@ -107,7 +108,7 @@ export default {
     getMovies: async (): Promise<Movie[]> => {
       try {
         const response = await axios.get<Movie[]>(
-          `${USER_URL}/getMovies`
+          `${USER_URL}/getTrendingMovies`
         );
         return response.data;
       } catch (err) {
