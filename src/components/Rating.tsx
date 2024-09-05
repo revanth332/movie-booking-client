@@ -3,7 +3,7 @@ export default function Rating({rating}:{rating:number}) {
   return (
     <div className="flex items-center">
         {
-            [...new Array(Math.floor(rating))].map((item,indx) => <svg
+            [...new Array(Math.floor(rating))].map((_,indx) => <svg
             key={indx}
             className="w-4 h-4 text-yellow-300 me-1"
             aria-hidden="true"

@@ -1,6 +1,6 @@
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import { useEffect } from "react";
+
 
 export default function Header({
   isAuthenticated,

@@ -1,15 +1,9 @@
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/HMF2VimBZqW
- * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
- */
-"use client";
 
-import { useState, useMemo, useEffect } from "react";
+
+import { useState, useEffect } from "react";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
-import { Link } from "react-router-dom";
 import { Movie } from "./LandingPage";
 import API from "@/services/API";
 import MovieCard from "./MovieCard";

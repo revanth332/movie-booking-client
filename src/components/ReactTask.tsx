@@ -6,10 +6,10 @@ export default function ReactTask() {
     set2: [],
   });
   const [set1Boxes, setSet1Boxes] = useState(
-    [...new Array(5)].map((item) => false)
+    [...new Array(5)].map(() => false)
   );
   const [set2Boxes, setSet2Boxes] = useState(
-    [...new Array(5)].map((item) => false)
+    [...new Array(5)].map(() => false)
   );
   const [set1, setSet1] = useState(false);
   const [set2, setSet2] = useState(false);
@@ -85,8 +85,8 @@ export default function ReactTask() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(data);
-    console.log(data.set1.filter((item, indx) => set1Boxes[indx] === true));
-    console.log(data.set2.filter((item, indx) => set2Boxes[indx] === true));
+    console.log(data.set1.filter((_, indx) => set1Boxes[indx] === true));
+    console.log(data.set2.filter((_, indx) => set2Boxes[indx] === true));
   };
   return (
     <div>

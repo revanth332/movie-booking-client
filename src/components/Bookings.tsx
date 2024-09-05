@@ -1,7 +1,6 @@
 import API from "@/services/API";
 import React, { useEffect } from "react";
 import { useCookies } from "react-cookie";
-import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { Card, CardContent, CardFooter } from "./ui/card";
 import { CalendarIcon, ClockIcon, MapPinIcon } from "lucide-react";
@@ -39,7 +38,7 @@ export default function Bookings() {
 
   const handleCancelBooking = async (bookingId: string) => {
     try {
-      const res = await API.post.cancelMovie(bookingId, cookies.token);
+      await API.post.cancelMovie(bookingId, cookies.token);
       setBookings(
         bookings.filter((booking) => booking.booking_id != bookingId)
       );
@@ -54,6 +53,7 @@ export default function Bookings() {
 
   return (
     <main className="flex-1">
+      <ToastContainer />
       <section className="w-full py-12 md:py-24 lg:py-32">
         <div className="container px-4 md:px-6">
           <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none mb-8">

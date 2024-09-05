@@ -1,5 +1,5 @@
 import API from "@/services/API";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { Button } from "./ui/button";
 

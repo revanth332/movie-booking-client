@@ -1,16 +1,9 @@
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+  Card
 } from "@/components/ui/card";
 import {
   CalendarIcon,
   PlayCircleIcon,
-  SearchIcon,
-  TicketIcon,
 } from "lucide-react";
 import { Movie } from "./LandingPage";
 import { Button } from "./ui/button";

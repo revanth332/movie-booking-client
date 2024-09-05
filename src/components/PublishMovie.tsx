@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,8 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useEffect, useState } from "react";
 import API from "@/services/API";
-import { useNavigate } from "react-router-dom";
-import { Movie } from "./LandingPage";
+
 import { ToastContainer, toast } from "react-toastify";
 import { Loader2 } from "lucide-react";
 
@@ -35,7 +33,6 @@ export default function PublishMovie() {
   const [availableMovies, setAvailableMovies] = useState<Pmovie[]>([]);
   const [cookies] = useCookies(["token", "userId"]);
   const [submitting, setSubmitting] = useState(false);
-  const navigate = useNavigate();
   const [movie, setMovie] = useState<PublishingMovie>({
     imdbID: "",
     price: 0,
