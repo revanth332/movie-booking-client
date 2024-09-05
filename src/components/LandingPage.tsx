@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import MovieCard from "./MovieCard";
 import API from "../services/API";
 import { useCookies } from "react-cookie";
+import { useLocation } from "react-router-dom";
 
 export interface Movie {
   movie_id: string;
@@ -20,6 +21,7 @@ export interface Movie {
 function LandingPage(): JSX.Element {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [cookies] = useCookies(["token"]);
+  const location = useLocation();
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -27,7 +29,7 @@ function LandingPage(): JSX.Element {
       try {
         const movies = await API.get.getMovies();
         setMovies(movies);
-        console.log(movies);
+        // console.log(movies);
       } catch (err) {
         console.log(err);
       }
@@ -55,12 +57,14 @@ function LandingPage(): JSX.Element {
               soluta nulla molestias.
             </div>
             <div className="mt-4">
-              <button
+              {
+                cookies.token === undefined ? <button
                 type="button"
                 className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
               >
                 SignIn
-              </button>
+              </button> : null
+              }
               <button
                 type="button"
                 onClick={() => {ref.current?.scrollIntoView({behavior:'smooth'})}}
@@ -76,19 +80,35 @@ function LandingPage(): JSX.Element {
       {
         movies.length > 0 ? 
       <div ref={ref} className="p-2 mt-5 h-screen w-screen">
-        <h1 className="text-center font-bold text-3xl text-red-500">
-          Top Rated Movies{" "}
+        <h1 className="font-bold text-3xl text-red-500 pl-5">
+          Animation {" "}
         </h1>
         <br />
         <div
-          id="trending-movies"
           className="flex overflow-x-auto space-x-4 p-5 scrollbar-hide w-screen"
           style={{scrollbarWidth:"thin"}}
         >
           {movies
             .filter(
               (movie) =>
-                movie.rating > 4
+                movie.genre.includes("Animation")
+            )
+            .map((movie, indx) => (
+              <MovieCard key={indx} movie={movie} />
+            ))}
+        </div>
+        <h1 className="font-bold text-3xl text-red-500 pl-5">
+          Action{" "}
+        </h1>
+        <br />
+        <div
+          className="flex overflow-x-auto space-x-4 p-5 scrollbar-hide w-screen"
+          style={{scrollbarWidth:"thin"}}
+        >
+          {movies
+            .filter(
+              (movie) =>
+                movie.genre.includes("Action")
             )
             .map((movie, indx) => (
               <MovieCard key={indx} movie={movie} />
@@ -96,6 +116,8 @@ function LandingPage(): JSX.Element {
         </div>
       </div>: <h1>No movies found</h1>
           }
+
+          
     </div> 
   );
 }

@@ -58,10 +58,12 @@ export default function Theaters({
       <Moviebanner movie={location.state} />
       <section className="w-full py-12 md:py-24 lg:py-32">
         <div className="container px-4 md:px-6">
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-8">
+
+          {
+            theaters.filter((theater) => new Date(theater.date) >= new Date()).length > 0 ? <>
+                      <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-8">
             Available Theaters
-          </h2>
-          <div className="grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
+          </h2> <div className="grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
             {theaters.filter((theater) => new Date(theater.date) >= new Date()).map((theater, index) => (
               <Card key={index} className="w-full">
                 <CardContent className="p-6">
@@ -91,7 +93,12 @@ export default function Theaters({
                 </CardContent>
               </Card>
             ))}
-          </div>
+          </div></> :
+                    <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-8">
+                    No Available Available Theaters
+                  </h2>
+          }
+
         </div>
       </section>
     </main>

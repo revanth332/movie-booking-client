@@ -39,8 +39,9 @@ export default function Signin({
       setCookie("userName", res.userName);
       setCookie("role", res.role);
       setAuthenticated(true);
-      navigate("/");
-      console.log(res.token);
+      if(res.role === "user") navigate("/");
+      else navigate("/publishedMovies")
+      // console.log(res.token);
     } catch (err) {
       notify(err as Error)
       console.log(err);

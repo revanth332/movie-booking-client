@@ -15,6 +15,7 @@ import PublishMovie from "./components/PublishMovie";
 import PublisherSignUp from "./components/PublisherSignUp";
 import ReactTask from "./components/ReactTask";
 import Cloudinary from "./components/Cloudinary";
+import Movies from "./components/Movies";
 
 function App(): JSX.Element {
   const [cookies] = useCookies();
@@ -23,7 +24,6 @@ function App(): JSX.Element {
     const token = cookies.token;
     if (token !== undefined) {
       setAuthenticated(true);
-      console.log(token, isAuthenticated);
     }
     // console.log(token,isAuthenticated);
   },[cookies]);
@@ -49,6 +49,7 @@ function App(): JSX.Element {
             <Route path="/publishedMovies" element={<PublishedMovies />} />
             <Route path="/seats/:theaterTimeMovieId" element={<Seats />} />
             <Route path="/bookings" element={<Bookings />} />
+            <Route path="/movies" element={<Movies />} />
           </Route>
           <Route
             path="/signup"

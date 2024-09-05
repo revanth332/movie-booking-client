@@ -224,12 +224,28 @@ export default {
         throw err;
       }
     },
+    getMoviesByGenre: async (token: string,genre:string) => {
+      try {
+        const response = await axios.get(
+          `${USER_URL}/getMoviesByGenre?genre=${genre}`,
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
+        console.log(response);
+        return response.data;
+      } catch (err) {
+        throw err;
+      }
+    },
   },
   delete:{
     cancelPublishedMovie: async (token: string, theaterMovieTimeId: string,date:string) => {
       try {
         const response = await axios.delete(
-          `${PUBLISHER_URL}/cancelPublishedMovie?theaterMovieTimeId=${theaterMovieTimeId}&?date=${date}`,
+          `${PUBLISHER_URL}/cancelPublishedMovie?theaterMovieTimeId=${theaterMovieTimeId}&date=${date}`,
           {
             headers: {
               Authorization: "Bearer " + token,

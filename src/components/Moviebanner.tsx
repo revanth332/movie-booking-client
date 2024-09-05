@@ -1,4 +1,4 @@
-import Rating from "./Rating";
+
 import { Movie } from "./LandingPage";
 import { CalendarIcon, ClockIcon, StarIcon } from "lucide-react";
 import { Button } from "./ui/button";

@@ -15,7 +15,6 @@ import {
 import { Movie } from "./LandingPage";
 import { Button } from "./ui/button";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
 
 export default function MovieCard({ movie }: { movie: Movie }): JSX.Element {
   const navigate = useNavigate();
@@ -25,7 +24,7 @@ export default function MovieCard({ movie }: { movie: Movie }): JSX.Element {
   };
 
   return (
-    <Card className="flex-shrink-0 w-[250px] relative overflow-hidden group">
+    <Card className="flex-shrink-0 w-[300px] relative overflow-hidden group">
       <img
         alt={`Movie poster`}
         className="object-cover w-full transition-transform duration-300 group-hover:scale-110"
