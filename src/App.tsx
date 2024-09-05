@@ -16,6 +16,7 @@ import PublisherSignUp from "./components/PublisherSignUp";
 import ReactTask from "./components/ReactTask";
 import Cloudinary from "./components/Cloudinary";
 import Movies from "./components/Movies";
+import FormHook from "./components/FormHook";
 
 function App(): JSX.Element {
   const [cookies] = useCookies();
@@ -69,6 +70,7 @@ function App(): JSX.Element {
           />
           <Route path="/task" element={<ReactTask />} />
           <Route path="/upload" element={<Cloudinary />} />
+          <Route path="/formhook" element={<FormHook />} />
 
           <Route path="*" element={<Notfound />} />
         </Routes>

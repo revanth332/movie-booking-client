@@ -8,9 +8,9 @@ import "react-toastify/dist/ReactToastify.css";
 import { Publisher } from "@/components/PublisherSignUp";
 import { Pmovie, PublishingMovie } from "@/components/PublishMovie";
 import { PublishedMovie } from "@/components/PublishedMovies";
-const USER_URL = "http://localhost:8000/v1/user";
-const AUTH_URL = "http://localhost:8000/v1/auth";
-const PUBLISHER_URL = "http://localhost:8000/v1/publisher";
+const USER_URL = import.meta.env.VITE_USER_URL;
+const AUTH_URL = import.meta.env.VITE_AUTH_URL;
+const PUBLISHER_URL = import.meta.env.VITE_PUBLISHER_URL;
 
 export default {
   post: {
