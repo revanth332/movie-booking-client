@@ -107,7 +107,7 @@ export default {
     getMovies: async (): Promise<Movie[]> => {
       try {
         const response = await axios.get<Movie[]>(
-          `http://localhost:8000/v1/getTrendingMovies`
+          `${USER_URL}/getMovies`
         );
         return response.data;
       } catch (err) {
