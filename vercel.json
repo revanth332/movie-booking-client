@@ -1,8 +1,0 @@
-{
-    "Rewrites":[
-        {
-            "source":"/(.*)",
-            "destination":"/"
-        }
-    ]
-}
