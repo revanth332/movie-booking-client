@@ -5,6 +5,16 @@ import { ToastContainer, toast } from "react-toastify";
 import { Card, CardContent, CardFooter } from "./ui/card";
 import { CalendarIcon, ClockIcon, MapPinIcon } from "lucide-react";
 import { Button } from "./ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 export interface Booking {
   theater_name: string;
@@ -42,14 +52,18 @@ export default function Bookings() {
       setBookings(
         bookings.filter((booking) => booking.booking_id != bookingId)
       );
+      notify("success")
       // console.log(res);
     } catch (err) {
-      notify();
+      notify("error");
       // console.log(err);
     }
   };
 
-  const notify = () => toast("Internal server error");
+  const notify = (type : string) => {
+    if(type === "success") return toast.success("Successfully canceled movie");
+    else return toast.error("Failed to cancel the movie")
+  }
 
   return (
     <main className="flex-1">
@@ -90,13 +104,36 @@ export default function Bookings() {
                     </p>
                   </CardContent>
                   <CardFooter className="p-6 pt-0">
-                    <Button
+                    <Dialog>
+                      <DialogTrigger asChild>
+                      <Button
                       variant="destructive"
                       className="w-full"
-                      onClick={() => handleCancelBooking(booking.booking_id)}
+                      // onClick={() => handleCancelBooking(booking.booking_id)}
                     >
                       Cancel Booking
                     </Button>
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-md">
+                        <DialogHeader>
+                          <DialogTitle>Confirm</DialogTitle>
+                          <DialogDescription>
+                            Do you want to cancel the ticket ?
+                          </DialogDescription>
+                        </DialogHeader>
+
+                        <DialogFooter className="sm:justify-start">
+                        <Button type="button" variant="default" onClick={() => handleCancelBooking(booking.booking_id)}>
+                              Yes
+                            </Button>
+                          <DialogClose asChild>
+                            <Button type="button" variant="secondary">
+                              Close
+                            </Button>
+                          </DialogClose>
+                        </DialogFooter>
+                      </DialogContent>
+                    </Dialog>
                   </CardFooter>
                 </Card>
               ))}
