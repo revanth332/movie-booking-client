@@ -118,7 +118,7 @@ export default {
     getExternalMovies : async (name : string): Promise<Pmovie[]> => {
       try {
         const response = await axios.get(
-          `http://www.omdbapi.com/?s=${name}&y=2024&type=movie&page=1&apikey=658d4be7`
+          `https://www.omdbapi.com/?s=${name}&y=2024&type=movie&page=1&apikey=658d4be7`
         );
         return response.data.Search;
       } catch (err) {
