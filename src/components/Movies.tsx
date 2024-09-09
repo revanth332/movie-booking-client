@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Movie } from "./LandingPage";
 import API from "@/services/API";
 import MovieCard from "./MovieCard";
+import { useDebounce } from "@/hooks/Debounce";
 
 export default function Component() {
   const [filters, setFilters] = useState<{
@@ -18,7 +19,7 @@ export default function Component() {
   });
   const [searchTerm, setSearchTerm] = useState("");
   const [movies, setMovies] = useState<Movie[]>([]);
-
+  const debouncedSearchTerm = useDebounce(searchTerm);
   useEffect(() => {
     const fechMovies = async () => {
       try {
@@ -47,8 +48,8 @@ export default function Component() {
         return false;
       }
       if (
-        searchTerm.trim().length > 0 &&
-        !movie.movie_name.toLowerCase().includes(searchTerm.toLowerCase())
+        debouncedSearchTerm.trim().length > 0 &&
+        !movie.movie_name.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
       ) {
         return false;
       }

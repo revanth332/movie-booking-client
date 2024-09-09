@@ -15,6 +15,7 @@ import API from "@/services/API";
 
 import { ToastContainer, toast } from "react-toastify";
 import { Loader2 } from "lucide-react";
+import { useDebounce } from "@/hooks/Debounce";
 
 export interface PublishingMovie {
   imdbID: string;
@@ -31,6 +32,8 @@ export interface Pmovie{
 
 export default function PublishMovie() {
   const [availableMovies, setAvailableMovies] = useState<Pmovie[]>([]);
+  const [searchTerm,setSearchTerm] = useState("hello");
+  const debouncedSearchTerm = useDebounce(searchTerm)
   const [cookies] = useCookies(["token", "userId"]);
   const [submitting, setSubmitting] = useState(false);
   const [movie, setMovie] = useState<PublishingMovie>({
@@ -52,8 +55,8 @@ export default function PublishMovie() {
   };
 
   useEffect(() => {
-    fechMovies("hello");
-  }, []);
+    fechMovies(debouncedSearchTerm);
+  }, [debouncedSearchTerm]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -82,7 +85,7 @@ export default function PublishMovie() {
 
   const handleMovieNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const imdbID = availableMovies?.filter(item => item.Title === e.target.value)[0]?.imdbID;
-    fechMovies(e.target.value);
+    setSearchTerm(e.target.value);
     setMovie({ ...movie, imdbID });
   };
 
@@ -154,9 +157,9 @@ export default function PublishMovie() {
                   onChange={handleMovieNameChange}
                 />
                 <datalist id="movies">
-                  {availableMovies?.map((item, indx) => (
+                  {availableMovies.length > 0 ? availableMovies?.map((item, indx) => (
                       <option key={indx} value={item.Title} />
-                    ))}
+                    )) : <option value={"no movies"}></option>}
                 </datalist>
               </div>
               <div className="grid gap-2">

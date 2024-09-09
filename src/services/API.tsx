@@ -120,6 +120,7 @@ export default {
         const response = await axios.get(
           `https://www.omdbapi.com/?s=${name}&y=2024&type=movie&page=1&apikey=658d4be7`
         );
+        if(response.data.Search === undefined) return [];
         return response.data.Search;
       } catch (err) {
         throw err;
