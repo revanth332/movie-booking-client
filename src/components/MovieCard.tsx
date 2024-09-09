@@ -8,6 +8,7 @@ import {
 import { Movie } from "./LandingPage";
 import { Button } from "./ui/button";
 import { Link, useNavigate } from "react-router-dom";
+import { tempImage } from "@/App";
 
 export default function MovieCard({ movie }: { movie: Movie }): JSX.Element {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ export default function MovieCard({ movie }: { movie: Movie }): JSX.Element {
         alt={`Movie poster`}
         className="object-cover w-full transition-transform duration-300 group-hover:scale-110"
 
-        src={movie.poster_url}
+        src={movie.poster_url === 'N/A' ? tempImage :movie.poster_url}
         style={{
           aspectRatio: "300/400",
           objectFit: "cover",

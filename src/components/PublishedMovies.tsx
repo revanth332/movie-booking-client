@@ -9,7 +9,9 @@ export interface PublishedMovie{
   price:number;
   date:string;
   time:string,
-  theater_movie_time_id:string
+  theater_movie_time_id:string,
+  theater_movie_id:string,
+  movie_id:string,
 }
 
 export default function PublishedMovies() {
@@ -29,9 +31,9 @@ export default function PublishedMovies() {
         fechMovies();
     },[])
 
-    const cancelPublishedMovie = async (theaterMovieTimeId : string,date:string) => {
+    const cancelPublishedMovie = async (theaterMovieTimeId : string,date:string,theaterMovieId:string,movieId:string) => {
         try{
-            const res = await API.delete.cancelPublishedMovie(cookies.token,theaterMovieTimeId,date.substring(0,10))
+            const res = await API.delete.cancelPublishedMovie(cookies.token,theaterMovieTimeId,date.substring(0,10),theaterMovieId,movieId)
             console.log(res);
             setMovies((prev) => prev.filter(movie => movie.theater_movie_time_id != theaterMovieTimeId))
         }
@@ -81,7 +83,7 @@ export default function PublishedMovies() {
                   Rs.{movie.price}
               </td>
               <td className="px-6 py-4">
-                  <button className="font-medium text-red-600" onClick={() => cancelPublishedMovie(movie.theater_movie_time_id,movie.date)}>Cancel</button>
+                  <button className="font-medium text-red-600" onClick={() => cancelPublishedMovie(movie.theater_movie_time_id,movie.date,movie.theater_movie_id,movie.movie_id)}>Cancel</button>
               </td>
           </tr>) : <tr>
             <td colSpan={5} className="text-center font-bold text-xl p-2">{"No published movies"}</td></tr>

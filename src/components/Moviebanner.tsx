@@ -3,6 +3,7 @@ import { Movie } from "./LandingPage";
 import { CalendarIcon, ClockIcon, StarIcon } from "lucide-react";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
+import { tempImage } from "@/App";
 
 export default function Moviebanner({ movie }: { movie: Movie }) {
   return (
@@ -15,7 +16,7 @@ export default function Moviebanner({ movie }: { movie: Movie }) {
       <div className="absolute inset-0 bg-gradient-to-r from-purple-900 via-blue-900 to-teal-900 opacity-90"></div>
       <div className="container flex px-4 md:px-6 relative z-10">
         <div>
-          <img src={movie.poster_url} alt="" />
+          <img src={movie.poster_url === 'N/A' ? tempImage :movie.poster_url} alt="" />
         </div>
         <div className="max-w-3xl mx-auto">
           <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none mb-4">

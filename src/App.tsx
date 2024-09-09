@@ -18,6 +18,8 @@ import Cloudinary from "./components/Cloudinary";
 import Movies from "./components/Movies";
 import FormHook from "./components/FormHook";
 
+export const tempImage = "https://previews.123rf.com/images/macrovector/macrovector1501/macrovector150100418/35433359-cinema-movie-entertainment-poster-with-realistic-film-reel-vector-illustration.jpg";
+
 function App(): JSX.Element {
   const [cookies] = useCookies();
   const [isAuthenticated, setAuthenticated] = useState<boolean>(false);

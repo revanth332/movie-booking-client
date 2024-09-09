@@ -244,10 +244,10 @@ export default {
     },
   },
   delete:{
-    cancelPublishedMovie: async (token: string, theaterMovieTimeId: string,date:string) => {
+    cancelPublishedMovie: async (token: string, theaterMovieTimeId: string,date:string,theaterMovieId:string,movieId:string) => {
       try {
         const response = await axios.delete(
-          `${PUBLISHER_URL}/cancelPublishedMovie?theaterMovieTimeId=${theaterMovieTimeId}&date=${date}`,
+          `${PUBLISHER_URL}/cancelPublishedMovie?theaterMovieTimeId=${theaterMovieTimeId}&date=${date}&theaterMovieId=${theaterMovieId}&movieId=${movieId}`,
           {
             headers: {
               Authorization: "Bearer " + token,

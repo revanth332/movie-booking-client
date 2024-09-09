@@ -83,8 +83,8 @@ export default function Component() {
   };
   
   return (
-    <div className="flex flex-col md:flex-row gap-8 p-4 md:p-8 mt-16">
-      <div className="bg-background rounded-lg shadow-lg p-4 md:p-6 flex-shrink-0">
+    <div className="flex flex-col md:flex-row gap-8 p-4 md:p-8 mt-16 bg-slate-100">
+      <div className="bg-background rounded-lg shadow-lg p-4 md:p-6 flex-shrink-0 w-60">
         <h2 className="text-xl font-bold mb-4">Filters</h2>
         <div className="grid gap-4">
           <div>
@@ -155,9 +155,9 @@ export default function Component() {
           </div>
         </div>
       </div>
-      <div className="flex-1">
+      <div className="flex-1 h-[700px] overflow-scroll">
         <div className="bg-background rounded-lg shadow-lg p-4 md:p-6 mb-6">
-          <div className="relative">
+          <div className="relative ">
             <form >
             <SearchIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
