@@ -24,11 +24,7 @@ export interface Theater {
   date: string;
 }
 
-export default function Theaters({
-  isAuthenticated,
-}: {
-  isAuthenticated: boolean;
-}) {
+export default function Theaters() {
   const [selectedTime, setSelectedTime] = useState("");
   const [selectedMovieTimeId, setSelectedMovieTimeId] = useState("");
   const location = useLocation();

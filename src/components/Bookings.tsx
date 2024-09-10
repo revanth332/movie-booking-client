@@ -15,6 +15,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { convertTo12HourFormat } from "./Time";
 
 export interface Booking {
   theater_name: string;
@@ -22,7 +23,7 @@ export interface Booking {
   price: string;
   time: string;
   booking_id: string;
-  booking_date: string;
+  date: string;
   seats_count: number;
 }
 
@@ -86,11 +87,11 @@ export default function Bookings() {
                     <div className="space-y-2 text-sm">
                       <div className="flex items-center">
                         <CalendarIcon className="mr-2 h-4 w-4" />
-                        <span>{booking.booking_date.substring(0, 10)}</span>
+                        <span>{booking.date.substring(0, 10)}</span>
                       </div>
                       <div className="flex items-center">
                         <ClockIcon className="mr-2 h-4 w-4" />
-                        <span>{booking.time.substring(0, 5)}</span>
+                        <span>{convertTo12HourFormat(booking.time.substring(0, 5))}</span>
                       </div>
                       <div className="flex items-center">
                         <MapPinIcon className="mr-2 h-4 w-4" />

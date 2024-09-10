@@ -6,7 +6,7 @@ import { UserSignin } from "@/components/Signin";
 import { UserSignup } from "@/components/Signup";
 import "react-toastify/dist/ReactToastify.css";
 import { Publisher } from "@/components/PublisherSignUp";
-import { Pmovie, PublishingMovie } from "@/components/PublishMovie";
+import { Pmovie,PublishingMovie } from "@/components/PublishMovie";
 import { PublishedMovie } from "@/components/PublishedMovies";
 const USER_URL = import.meta.env.VITE_USER_URL;
 const AUTH_URL = import.meta.env.VITE_AUTH_URL;
