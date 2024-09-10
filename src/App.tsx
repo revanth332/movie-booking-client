@@ -46,7 +46,7 @@ function App(): JSX.Element {
             <Route index element={<LandingPage />} />
             <Route
               path="/theaters/:movieId"
-              element={<Theaters isAuthenticated={isAuthenticated} />}
+              element={<Theaters />}
             />
             <Route path="/publishMovie" element={<PublishMovie />} />
             <Route path="/publishedMovies" element={<PublishedMovies />} />
