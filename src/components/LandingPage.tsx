@@ -73,13 +73,13 @@ function LandingPage(): JSX.Element {
             </div>
           </div>
         </div>
-        <img src="src\assets\movie-bg.jpg" className="h-full w-full" alt="df" />
+        <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="h-full w-full" alt="df" />
       </div>
       {
         movies.length > 0 ? 
       <div ref={ref} className="p-2 mt-5 h-screen w-screen">
         <h1 className="font-bold text-3xl text-red-500 pl-5">
-          Animation {" "}
+          Top Rated {" "}
         </h1>
         <br />
         <div
@@ -88,25 +88,8 @@ function LandingPage(): JSX.Element {
         >
           {movies
             .filter(
-              (movie) =>
-                movie.genre.includes("Animation")
-            )
-            .map((movie, indx) => (
-              <MovieCard key={indx} movie={movie} />
-            ))}
-        </div>
-        <h1 className="font-bold text-3xl text-red-500 pl-5">
-          Action{" "}
-        </h1>
-        <br />
-        <div
-          className="flex overflow-x-auto space-x-4 p-5 scrollbar-hide w-screen"
-          style={{scrollbarWidth:"thin"}}
-        >
-          {movies
-            .filter(
-              (movie) =>
-                movie.genre.includes("Action")
+              (_,indx) =>
+                indx < 5
             )
             .map((movie, indx) => (
               <MovieCard key={indx} movie={movie} />
