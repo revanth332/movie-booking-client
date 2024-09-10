@@ -1,4 +1,3 @@
-
 import { Movie } from "./LandingPage";
 import { CalendarIcon, ClockIcon, StarIcon } from "lucide-react";
 import { Button } from "./ui/button";
@@ -16,7 +15,11 @@ export default function Moviebanner({ movie }: { movie: Movie }) {
       <div className="absolute inset-0 bg-gradient-to-r from-purple-900 via-blue-900 to-teal-900 opacity-90"></div>
       <div className="container flex px-4 md:px-6 relative z-10">
         <div>
-          <img src={movie.poster_url === 'N/A' ? tempImage :movie.poster_url} alt="" />
+          <img
+            width={300}
+            src={movie.poster_url === "N/A" ? tempImage : movie.poster_url}
+            alt=""
+          />
         </div>
         <div className="max-w-3xl mx-auto">
           <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none mb-4">
@@ -34,7 +37,7 @@ export default function Moviebanner({ movie }: { movie: Movie }) {
             </div>
             <div className="flex items-center bg-black bg-opacity-50 rounded-full px-3 py-1">
               <CalendarIcon className="mr-1 h-4 w-4" />
-              <span>{movie.release_date.substring(0,10)}</span>
+              <span>{movie.release_date.substring(0, 10)}</span>
             </div>
           </div>
           <div className="space-y-2 mb-6 text-gray-200">
@@ -49,11 +52,10 @@ export default function Moviebanner({ movie }: { movie: Movie }) {
                 </p> */}
           </div>
           <Link to="https://www.youtube.com/watch?v=NhSz86YpihM">
-          <Button size="lg" className="bg-white text-black hover:bg-gray-200">
-            Watch Trailer
-          </Button>
+            <Button size="lg" className="bg-white text-black hover:bg-gray-200">
+              Watch Trailer
+            </Button>
           </Link>
-          
         </div>
       </div>
     </section>

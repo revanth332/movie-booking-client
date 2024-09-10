@@ -134,20 +134,6 @@ export default function PublishMovie() {
             <div className="grid gap-4">
               <div className="grid gap-2">
                 <Label htmlFor="movieName">Movie Name</Label>
-                {/* <select
-                  id="movieName"
-                  value={movie.movieId}
-                  onChange={handleMovieNameChange}
-                  required
-                  className="border rounded-md px-2 py-1 text-gray-700 focus:outline-none focus:ring-black focus:border-black"
-                >
-                  <option value="">Select Movie</option>
-                  {availableMovies.map((item, indx) => (
-                    <option key={indx} value={item.movie_id}>
-                      {item.movie_name}
-                    </option>
-                  ))}
-                </select> */}
                 <Input
                   id="movieName"
                   type="text"

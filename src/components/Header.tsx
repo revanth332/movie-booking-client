@@ -37,13 +37,13 @@ export default function Header({
               <>
                 <li className="block px-4 py-2">Hi! {cookies.userName}</li>
                 <li>
-                  <Link className={`block px-4 py-2 hover:font-bold ${location.pathname === "/" ? "font-bold" : ""}`} to="/">
+                  <Link className={`block px-4 py-2 hover:font-bold ${location.pathname.includes("/") ? "font-bold" : ""}`} to="/">
                       Home
                   </Link>
                 </li>
                 <li>
                   <Link
-                    className={`block px-4 py-2 hover:font-bold ${location.pathname === "/bookings" ? "font-bold" : ""}`}
+                    className={`block px-4 py-2 hover:font-bold ${location.pathname.includes("/bookings") ? "font-bold" : ""}`}
                     to="/bookings"
                   >
                     Bookings
@@ -51,7 +51,7 @@ export default function Header({
                 </li>
                 <li>
                   <Link
-                    className={`block px-4 py-2 hover:font-bold ${location.pathname === "/movies" ? "font-bold" : ""}`}
+                    className={`block px-4 py-2 hover:font-bold ${location.pathname.includes("/movies") ? "font-bold" : ""}`}
                     to="/movies"
                   >
                     Movies
@@ -64,7 +64,7 @@ export default function Header({
               <>
                 <li>
                   <Link
-                    className={`block px-4 py-2 hover:font-bold ${location.pathname === "/publishMovie" ? "font-bold" : ""}`}
+                    className={`block px-4 py-2 hover:font-bold ${location.pathname.includes("/publishMovie") ? "font-bold" : ""}`}
                     to="/publishMovie"
                   >
                     Publish
@@ -72,7 +72,7 @@ export default function Header({
                 </li>
                 <li>
                   <Link
-                    className={`block px-4 py-2 hover:font-bold ${location.pathname === "/publishedMovies" ? "font-bold" : ""}`}
+                    className={`block px-4 py-2 hover:font-bold ${location.pathname.includes("/publishedMovies") ? "font-bold" : ""}`}
                     to="/publishedMovies"
                   >
                     Releases
@@ -92,23 +92,23 @@ export default function Header({
         ) : (
           <ul className="flex text-white">
             <li>
-              <Link className={`block px-4 py-2 hover:font-bold ${location.pathname === "/signup" ? "font-bold" : ""}`} to="/signup">
+              <Link className={`block px-4 py-2 hover:font-bold ${location.pathname.includes("/signup") ? "font-bold" : ""}`} to="/signup">
                 SignUp
               </Link>
             </li>
             <li>
-              <Link className={`block px-4 py-2 hover:font-bold ${location.pathname === "/signin" ? "font-bold" : ""}`} to="/signin">
+              <Link className={`block px-4 py-2 hover:font-bold ${location.pathname.includes("/signin") ? "font-bold" : ""}`} to="/signin">
                 SignIn
               </Link>
             </li>
             <li>
-              <Link className={`block px-4 py-2 hover:font-bold ${location.pathname === "/" ? "font-bold" : ""}`} to="/">
+              <Link className={`block px-4 py-2 hover:font-bold ${location.pathname.includes("/") ? "font-bold" : ""}`} to="/">
                 Home
               </Link>
             </li>
             <li>
               <Link
-                className={`block px-4 py-2 hover:font-bold ${location.pathname === "/publisherSignup" ? "font-bold" : ""}`}
+                className={`block px-4 py-2 hover:font-bold ${location.pathname.includes("/publisherSignup") ? "font-bold" : ""}`}
                 to="/publisherSignup"
               >
                 Exibitor
