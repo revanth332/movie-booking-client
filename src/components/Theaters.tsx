@@ -41,10 +41,7 @@ export default function Theaters({
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      navigate("/signin");
-    }
-    console.log(location.state);
+    // console.log(location.state);
 
     const today = new Date();
     const dateArray = Array.from({ length: 30 }, (_, i) => addDays(today, i));
