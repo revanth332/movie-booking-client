@@ -39,7 +39,7 @@ export default function Signin({
       setCookie("userName", res.userName);
       setCookie("role", res.role);
       setAuthenticated(true);
-      if(res.role === "user") navigate("/");
+      if(res.role === "user") navigate("/movies");
       else navigate("/publishedMovies")
       // console.log(res.token);
     } catch (err) {
