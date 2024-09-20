@@ -67,7 +67,9 @@ export default function Time({
         variant={
           selectedTime === `${theaterName}-${time}` ? "default" : "outline"
         }
+        className="timeBtn"
         onClick={handleSelection}
+        data-testid={convertTo12HourFormat(time)}
       >
         {convertTo12HourFormat(time)}
       </Button> :

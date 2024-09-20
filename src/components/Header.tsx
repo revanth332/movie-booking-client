@@ -35,12 +35,7 @@ export default function Header({
           <ul className="flex text-white">
             {cookies.role === "user" && (
               <>
-                <li className="block px-4 py-2">Hi! {cookies.userName}</li>
-                <li>
-                  <Link className={`block px-4 py-2 hover:font-bold ${location.pathname.includes("/") ? "font-bold" : ""}`} to="/">
-                      Home
-                  </Link>
-                </li>
+                <li data-testid="username" className="block px-4 py-2">Hi! {cookies.userName}</li>
                 <li>
                   <Link
                     className={`block px-4 py-2 hover:font-bold ${location.pathname.includes("/bookings") ? "font-bold" : ""}`}

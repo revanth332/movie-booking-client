@@ -75,11 +75,11 @@ export default function Bookings() {
             Your Booked Movies
           </h1>
           {bookings.length === 0 ? (
-            <p className="text-xl text-center">You have no current bookings.</p>
+            <h1 className="text-xl text-center">You have no current bookings.</h1>
           ) : (
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {bookings.map((booking) => (
-                <Card key={booking.booking_id} className="flex flex-col">
+                <Card key={booking.booking_id} className="booking-card flex flex-col">
                   <CardContent className="flex-grow p-6">
                     <h2 className="text-2xl font-bold mb-2">
                       {booking.movie_name}

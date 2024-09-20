@@ -89,6 +89,7 @@ export default function Seats() {
   }) =>
     seat.status_id !== 1 ? (
       <button
+        data-testid={"seat"+number}
         className={`w-10 h-10 m-1 flex items-center justify-center border rounded ${
           isSelected
             ? "bg-primary text-primary-foreground"
@@ -133,12 +134,18 @@ export default function Seats() {
     </div>
   );
 
+  // if(seats.length <= 0){
+  //   return <p className="text-2xl mt-5 text-center text-black">Oops! Not a valid Movie Id</p>
+  // }
+
   return (
-    <main className="flex-1">
+    <>
+    {seats.length <= 0 ? <h1 className="text-2xl mt-20 text-center text-black">Oops! Not a valid Movie Id</h1> : 
+      <main className="flex-1">
       <section className="w-full py-12 md:py-24 lg:py-32">
         <div className="container px-4 md:px-6">
           <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none mb-8 text-center">
-            Select Your Seats
+             Select Your Seats
           </h1>
           <div className="max-w-3xl mx-auto space-y-8">
             <div className="space-y-4">
@@ -243,6 +250,7 @@ export default function Seats() {
                   <DialogFooter className="sm:justify-start">
                     <DialogClose asChild>
                       <Button
+                        data-testid="closeAfterBookingBtn"
                         onClick={() => {
                           navigate("/bookings");
                         }}
@@ -260,5 +268,7 @@ export default function Seats() {
         </div>
       </section>
     </main>
+}
+    </>         
   );
 }

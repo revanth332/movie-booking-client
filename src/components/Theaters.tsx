@@ -106,6 +106,7 @@ export default function Theaters() {
               >
                 {dates.map((date) => (
                   <Button
+                    data-testid={format(date, "MMM d")}
                     key={date.toISOString()}
                     variant={
                       isSameDay(date, selectedDate) ? "default" : "outline"
@@ -162,7 +163,7 @@ export default function Theaters() {
                     selectedDate.toISOString().substring(0, 10)
                 )
                 .map((theater, index) => (
-                  <Card key={index} className="w-full">
+                  <Card key={index} className="theater-card w-full">
                     <CardContent className="p-6">
                       <div className="flex justify-between">
                         <h3 className="text-2xl font-bold mb-2">
@@ -185,6 +186,7 @@ export default function Theaters() {
                         />
                       </div>
                       <Button
+                        data-testid={"button"+index}
                         className="w-full"
                         disabled={
                           !selectedTime.startsWith(theater.theater_name)
@@ -198,9 +200,9 @@ export default function Theaters() {
                 ))}
             </div>
           ) : (
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center">
-              No Available Available Theaters
-            </h2>
+            <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center">
+              No Available Theaters
+            </h1>
           )}
         </div>
       </section>

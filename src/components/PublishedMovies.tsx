@@ -83,7 +83,7 @@ export default function PublishedMovies() {
                   Rs.{movie.price}
               </td>
               <td className="px-6 py-4">
-                  <button className="font-medium text-red-600" onClick={() => cancelPublishedMovie(movie.theater_movie_time_id,movie.date,movie.theater_movie_id,movie.movie_id)}>Cancel</button>
+                  <button className="cancelBtn font-medium text-red-600" onClick={() => cancelPublishedMovie(movie.theater_movie_time_id,movie.date,movie.theater_movie_id,movie.movie_id)}>Cancel</button>
               </td>
           </tr>) : <tr>
             <td colSpan={5} className="text-center font-bold text-xl p-2">{"No published movies"}</td></tr>

@@ -46,6 +46,7 @@ export default function MovieCard({ movie }: { movie: Movie }): JSX.Element {
             </span>
           </div>
           <Button
+            data-testid={movie.movie_id}
             onClick={handleBooking}
             className="w-full bg-white text-black hover:bg-gray-200"
           >

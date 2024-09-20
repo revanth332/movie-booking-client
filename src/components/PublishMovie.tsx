@@ -83,11 +83,14 @@ export default function PublishMovie() {
     }
   };
 
-  const handleMovieNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const imdbID = availableMovies?.filter(item => item.Title === e.target.value)[0]?.imdbID;
-    setSearchTerm(e.target.value);
-    setMovie({ ...movie, imdbID });
+  const handleMovieNameChange = (e: React.ChangeEvent<HTMLInputElement> | React.KeyboardEvent<HTMLInputElement>) => { 
+    // const imdbID = availableMovies?.find(item => item.Title === e.target.value)?.imdbID;
+    const inputElement = e.target as HTMLInputElement;
+    const imdbID = availableMovies?.filter(item => item.Title === inputElement.value)[0]?.imdbID;
+    setSearchTerm(inputElement.value);
+    if((e.nativeEvent as KeyboardEvent).code === "13" || imdbID) setMovie({ ...movie, imdbID });
   };
+
 
   const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMovie({ ...movie, price: +e.target.value });
@@ -141,6 +144,7 @@ export default function PublishMovie() {
                   required
                   list="movies"
                   onChange={handleMovieNameChange}
+                  onKeyDown={handleMovieNameChange}
                 />
                 <datalist id="movies">
                   {availableMovies.length > 0 ? availableMovies?.map((item, indx) => (
@@ -166,6 +170,7 @@ export default function PublishMovie() {
                   type="date"
                   value={movie.date}
                   onChange={handleDateChange}
+                  placeholder="publish-date"
                   required
                 />
               </div>

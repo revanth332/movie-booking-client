@@ -16,9 +16,10 @@ export default function Moviebanner({ movie }: { movie: Movie }) {
       <div className="container flex px-4 md:px-6 relative z-10">
         <div>
           <img
+            className="movie-poster"
             width={300}
             src={movie.poster_url === "N/A" ? tempImage : movie.poster_url}
-            alt=""
+            alt="poster"
           />
         </div>
         <div className="max-w-3xl mx-auto">

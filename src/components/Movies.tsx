@@ -92,6 +92,7 @@ export default function Component() {
             <div className="grid gap-2">
               <Label className="flex items-center gap-2 font-normal">
                 <Checkbox
+                  data-testid="drama-genre"
                   checked={filters.genre.includes("Drama")}
                   onCheckedChange={() => handleFilterChange("genre", "Drama")}
                 />

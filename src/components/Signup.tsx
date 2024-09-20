@@ -51,7 +51,7 @@ export default function Signup({
         setCookie("userName", res.userName);
         setCookie("role",res.role)
         setAuthenticated(true);
-        navigate("/");
+        navigate("/movies");
     }
     catch(err){
       notify(err as Error)
@@ -138,6 +138,7 @@ export default function Signup({
             <div className="grid gap-2">
               <Label htmlFor="password">Password</Label>
               <Input id="password" type="password" 
+              placeholder="Password"
               value={user.password}
               onChange={(e) =>
                 setUser({ ...user, password: e.target.value })

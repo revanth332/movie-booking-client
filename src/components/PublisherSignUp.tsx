@@ -130,6 +130,7 @@ export default function PublisherSignUp({
                 <Input
                   id="password"
                   type="password"
+                  placeholder="Password"
                   value={publisher.password}
                   onChange={(e) =>
                     setPublisher({ ...publisher, password: e.target.value })
@@ -142,8 +143,8 @@ export default function PublisherSignUp({
                 <Input
                   id="capacity"
                   type="number"
-                  placeholder="Total number of seats in your theater"
-                  value={publisher.capacity}
+                  placeholder="Number of seats in Theater"
+                  value={publisher.capacity !== 0 ? publisher.capacity : ''}
                   onChange={(e) =>
                     setPublisher({ ...publisher, capacity: Number(e.target.value) })
                   }
