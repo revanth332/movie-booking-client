@@ -304,7 +304,7 @@ test.describe("Movies Page",() => {
     const movies = await page.getByRole("button",{
       name:"Book Now"
     })
-    expect(await movies.count()).toBeGreaterThanOrEqual(0);
+    await expect(await movies.count()).toBeGreaterThanOrEqual(0);
 
     if(await movies.count() == 0) await expect(await page.getByText("No movies found"));
   });
@@ -326,9 +326,7 @@ test.describe("Movies Page",() => {
       name:"Book Now"
     })
 
-    expect(await movies.count()).toBeGreaterThanOrEqual(0);
-
-    if(await movies.count() == 0) await expect(await page.getByText("No movies found"));
+    if(await movies.count() == 0) await expect(await page.getByText("No movies found")).toBeVisible();
   })
 
   test("should redirect to page displaying available theaters for the movie selected",async ({page}) => {
@@ -373,7 +371,7 @@ test.describe("Theater Page",() => {
   })
 
   test("should render theater cards on clicking date",async ({page}) => {
-    const dateBtn = await page.getByTestId("Sep 23");
+    const dateBtn = await page.locator(".date-btn").nth(0);
     await dateBtn.click();
     await page.waitForTimeout(1000);
 
@@ -571,6 +569,7 @@ test.describe("Publish Movie Page",() => {
       name:"Add Movie"
     }).click();
 
+    await page.waitForTimeout(2000);
     await expect(page.getByText("Successfully Added show!")).toBeVisible();
   })
 })

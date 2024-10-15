@@ -111,7 +111,7 @@ export default function Theaters() {
                     variant={
                       isSameDay(date, selectedDate) ? "default" : "outline"
                     }
-                    className="flex-shrink-0"
+                    className="flex-shrink-0 date-btn"
                     onClick={() => setSelectedDate(date)}
                   >
                     {format(date, "MMM d")}

@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
 import Signin from "./components/Signin";
 import Layout from "./components/Layout";
@@ -22,11 +22,14 @@ export const tempImage = "https://previews.123rf.com/images/macrovector/macrovec
 
 function App(): JSX.Element {
   const [cookies] = useCookies();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [isAuthenticated, setAuthenticated] = useState<boolean>(false);
   useEffect(() => {
     const token = cookies.token;
     if (token !== undefined) {
       setAuthenticated(true);
+      navigate(location.pathname);
     }
     // console.log(token,isAuthenticated);
   },[cookies]);
